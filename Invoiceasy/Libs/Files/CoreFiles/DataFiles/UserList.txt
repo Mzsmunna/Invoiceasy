@@ -1,0 +1,5 @@
+Sl,Username,FirstName,LastName,Gender,DOB,Email,Phone,Password,Usertype,Access
+1,Mzs,Mamunuz,Zaman,Male,28-1-1995,"mzs.munna@gmail.com,","01744692979,",mzs12345A,Admin,"Product-C|R|U|D|S,Dealer-C|R|U|D|S,User-C|R|U|D|S"
+2,Moni,Moniruzzaman,Sarker,Male,28-1-1982,"moni.cuet99@gmail.com,","01730464278,01730464279",moni12345,Supervisor,"Product-C|R|U|D|S,Dealer-C|R|U|S,User-C|R|U|S"
+3,Ashik,Ashikur,Rahman,Male,28-1-1988,ashik.pbdc@gmail.com,"01719615468,",ashik12345,Manager,"Product-C|R|U|D|S,Dealer-C|R|U|S,User-C|R|U|S"
+3,Guest,Guest,User,,,,,G12345,Guest,"Product-R|S,Dealer-R|S,User-R|S"

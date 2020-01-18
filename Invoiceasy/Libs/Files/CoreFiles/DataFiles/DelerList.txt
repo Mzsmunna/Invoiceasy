@@ -1,0 +1,48 @@
+SL,Date,Dealer Name,Address,Contact,Code
+1,07-Mar-19,H&H Distribution,"Nasirabad Housing Society, Road:4, House:24, Chittagong.",Mr. Selim 01975-609812,UNY-001/DK001
+2,07-Mar-19,Green Powertech & Engineering,"Sabbir Ahmed Plaza, Station Road, Railgate, Bogura.",Mr.Rasel 01777-671011,UNY-001/DK002
+3,07-Mar-19,SM Electric,"Shop: 02, Kaptan Bazar Market, Bhaban-1, Dhaka, Bangladesh.",Md.Mozzammel Hossain 01708-481646,UNY-001/DK003
+4,07-Mar-19,NC power Systems,"6 Madani Aveneue , Block J, Baridhara, Notun Bazar, Dhaka-1212.",Mith 01819-203173,UNY-001/DK004
+5,30-Jan-19,NZ Enterprice,"10, Taher Tower, 2nd Floor, Rome-301, Gulshan-2, Dhaka.",Md.Abdur Rahim 01714-093601,UNY-001/DK005
+6,06-Feb-19,Brand Trade Corporation,"Shop:184 & 24, Kaptan Bazar Complex, Bhabon-1, Nobabpur, Road, Dhaka-1000.",Md.Sariful Islam 01726-525690,UNY-001/DK006
+7,06-Feb-19,Global Electric & Trading,"Shop:05, Kaptan Bazar Complex , (1st Floor) Bhabon-1, Nobabpur road, Dhaka-1000.",Md.Akter Hossain 01918-965848,UNY-001/DK007
+8,10-Feb-19,M/S Khandaker Traders,"Shop: 9/10, DNCC Kacha Bazar,(3rd Floor), Gulshan-2, Dhaka1212.",khandoker Sohel Ahmed 01911-910627,UNY-001/DK008   
+9,10-Feb-19,Mollah Electric,"Vuiyah Plaza, Thana Road, Mograpara Chowrasta, Sonargaon , Narayanganj.",Md.Shahajalal Mollah 0195-7558953,UNY-001/DK009
+10,26-Feb-19,Dhaka Electric Trading.,"14 No( Under Ground), Commercial Complx, Azompur, Sector-7, Uttara, Dhaka-1230",Md. Limon 01716-061213,UNY-001/DK010
+11,26-Feb-19,A-1 Electric,"8/A, A,B Super Market, Azompur Uttara, Dhaka-1230",Mr.Harun-ur- Rashid 01777-888382,UNY-001/DK011
+12,26-Feb-19,M/S Sagor Electric,"K ,Chowdhury Market, Chandona Chowrasta, Gazipur.",Md.Abul Hossain 01711-647561,UNY-001/DK012
+13,03-Mar-19,Bagherhat Electric & Solar,"15/2, Sundarban Square Market, Nobabpur, Dhaka.", Md.Muzahid 01714-871028,UNY-001/DK013
+14,03-Mar-19,M/S City Electric,"Citi Corporation Market, Nitaigonj mor, Narayanganj",Mr.Sarif 01688-166223,UNY-001/DK014
+15,03-Mar-19,M/S Sakil Electric Work,"Sha Kabir Majar Road, Azompur Kacha Bazar, Dakshin Khan, Dhaka-1230.", A.k.M Rumman Iqbal 01711-349685,UNY-001/DK015
+16,04-Mar-19,Fatema Electric House,"628/2 Manikdi Bazar, Dhaka Cantonment-1206",Mr.Sakhawat Ullah 01687-269044,UNY-001/DK016
+17,04-Mar-19,Dimension Traders,"73 uttar Kalshi, Sarker Bari, DOHS, Mirpur-12, Dhaka.",Mr. Mahbub 01711-274304,UNY-001/DK017
+18,04-Mar-19,Adarsha Electrical & Electronics,"Mosjid Road, Joydebpur,Gazipur.","Md. Sohrab Hossen Ekhlas 01937-767273, 01777233455",UNY-001/DK018
+19,07-Mar-19,Master Electric Center,"Section-11, Block-A, Road-2, Plot-2, Bazar Road, Mirpur, Pallobi, Dhaka.",Sekh Mamunur Rashid 018190-75828,UNY-001/DK019
+20,11-Mar-19,Patwary Electric Sanitary & Hardware,"111/3Mohakhali Dakkhin Para, Niketon Bazar, Gulshan, Dhaka.",Md.Mamun Patwary 01745-442375,UNY-001/DK020
+21,11-Mar-19,New Feni Electric & Hardware,"SHA-49, Hossain Market, North Badda, Dhaka-1212",Md.Farhad Hossain 01611-160028 01977-760028,UNY-001/DK021
+22,11-Mar-19,Al Amin Electric,"69 Nawabganj Road, Hazaribagh, Lalbagh, Dhaka.",Md.Al Amin 01818-520295,UNY-001/DK022
+23,17-Mar-19,Rahmat Ullah Electric,"65/2 Sirajdoullah Road, Rubi Super Market,Kalir Bazar, Narayanganj,",Md.Rahmat Ullah 01735-204869,UNY-001/DK023
+24,17-Mar-19,M/S S.M Traders,"M.Chan Market, shop-1, Siraj Uddullah Road, Narayanganj,",Md.Masud 01677-218470 01720-477150.,UNY-001/DK024
+25,19-Mar-19,Chadpur Hardware & Electric House,"1057, Section-7, Road-5, Milk Vita  Chowrasta Mor, Mirpur, Dhaka.",Md. Bellal Hossin 01670-287795,UNY-001/DK025
+26,19-Mar-19,Aziz Electric,"25/7-1 Zigatola, Dhaka-1209", Md. Yusuf Khan 01925-767727 01916-159644,UNY-001/DK026
+27,23-Mar-19,M/S Uttara Electric,"Sha KabirMazar Road, Azompur Kacha Bazar, Dokkin Khan, Uttara, Dhaka.-1230.",Mohammad Ibrahim 01970-532222,UNY-001/DK027
+28,19-Mar-19,Kashem  Electric,"H 6/18 Uotokhali, Mazar Road, Mirpur-1, Dhaka.",Md.Kashem 01922796631,UNY-001/DK028
+29,19-Mar-19,Rafin Electric House,"27 C, Road No: 15/2, Mirpur-1, Dhaka.",,UNY-001/DK029
+30,19-Mar-19,Quality Traders,"Hazi Sunamuddin Waqfa Market, 1st Floor, Dokan No-91, Chondona chowrasta, Gazipur City.",Md.Shohidul Islam 01727-172535,UNY-001/DK030
+31,21-Apr-19,S.S Electric Store,"KA-24/2, Bashundhara Road, Sarker Market, Dhaka-1229",Md.Nazrul Islam 01717-054163,UNY-001/DK031
+32,21-Apr-19,Mejba Electric & Hardware,"Shop: 234 (1st Floor) D.O.H.S, Baridhara-Dhaka.",Md. Shafiqul Islam 01674-216088,UNY-001/DK032
+33,02-May-19,Hasan Elrctric,"Shop No: 05, MSPCC Market, Pallabi, Mirpur 11 1/2, Dhaka-1216",Abdul Jaher 01788-600838,UNY-001/DK033
+34,01-Jul-19,Chandpu Electric House,"Road:1, Kalshe Mirpur 11, dhaka.",,UNY-001/DK034
+35,22-Jul-19,Mahfuj Electric Engineeing,"Dhaka Mymenshing Road, Tongi, Gajipura-1700",Mostafijur Rahman 01717-059736,UNY-001/DK035
+36,01-Sep-19,Mamata Electric & Lighting House,"Ka-4, Mamata Complex(near Pitha Ghar) Bashundhara Road,Vatara, Dhaka",Mizanur Rahman 01741-767000,UNY-001/DK036
+37,15-Sep-19,NobabGang Electric & Hardware,"Shah Kabir Mazar Road, Ajompur, Uttara, Dhaka",Mamun Miya 01680-801050,UNY-001/DK037
+38,18-Sep-19,Vai Vai Hardware & Electric,"427, Khonik Super Market, Ashkona Bazar, Medical Road DokkhinKhan,Dhaka",Md. Unus Khan 01711-985428 01924-806265,UNY-001/DK038
+39,29-Sep-19,Mayer Doya Electric,"Bissah Market, Mazar Courasta,Uttarkhan",Md.Habibur Rahman 01921-745753,UNY-001/DK039
+40,03-Oct-19,New Jhilik Biddut Ghor,"Kasimpur Road, Konabari, Gajipur",Faruk Vuiya 01712-567584 01711-465767,UNY-001/DK040
+41,03-Oct-19,Madina Sanetary & Electric House,"A-73, Mir Complex,Sofipur Bazar, Kaliyakor,Gajipur",Shahina Begam 01784-231000 01712-146479,UNY-001/DK041
+42,06-Oct-19,M/S Sarker Traders,"Baypas, College Mor, Kaliyakor, Gajipur",Khayrul Alom Khokon 01732-603151,UNY-001/DK042
+43,07-Oct-19,S.N Electric Company,"Ga-25/6, Progati Sharani, Shahajadpur, Gulshan, Dhaka.",Md. Nowshad Chowdhury 01715-198739,UNY-001/DK043
+44,01-Nov-19,Takwaya Electric,"Rd-4, Shop-4, ShahGupta, Mirpur-12",Abdur Jaher 01788-600838,UNY-001/DK044
+45,24-Nov-19,Chandpur Hardware & Electric,"Millk Vita mor, Mirpur",,UNY-001/DK045
+46,,SM Lighting,"Paltan, Dhaka,Bangladesh",Mr. Tamjid 01916614640,UNY-001/DK046
+47,01-Jan-20,Mahadia Electric & Hardware,"Shop-35 & 42, Under Ground,Gazi Hossen Plaza, Staff Quarter, Demra.",A. R. Mohiuddin 01911-888238 01990252633,UNY-001/DK047
