@@ -10,7 +10,7 @@ namespace Invoiceasy.ViewModel
     {
         public string AmountInWord { get; set; }
         public int InTotalAmount { get; set; }
-        public int Discount { get; set; } = 29; //%
+        public int Discount { get; set; } = 40; //%
         public int DiscountAmount { get; set; }
         public string SpecialDiscount { get; set; } = "Special Discount ";
         public int PayableAmount { get; set; }

@@ -162,13 +162,15 @@ namespace Invoiceasy
                 Console.Out.WriteLine("INVOICE PAGE! NOTE:");
                 invoicePage.Note = Console.ReadLine();
                 invoicePage.InTotalAmount = invoicePage.AllProducts.Sum(x => x.TotalAmount);
-                invoicePage.AmountInWord = NumberToWords.ConvertAmount(Convert.ToDouble(invoicePage.InTotalAmount));
+                //invoicePage.AmountInWord = NumberToWords.ConvertAmount(Convert.ToDouble(invoicePage.InTotalAmount));
+                Console.Out.WriteLine("Discount In Percentage :");
+                invoicePage.Discount = Convert.ToInt32(Console.ReadLine());
                 invoicePage.SpecialDiscount += "(" + invoicePage.Discount + " %)";
                 double parcentage = 100;
                 double discountAmount = Convert.ToDouble(invoicePage.Discount) / parcentage * Convert.ToDouble(invoicePage.InTotalAmount);
                 invoicePage.DiscountAmount = Convert.ToInt32(discountAmount);
                 invoicePage.PayableAmount = invoicePage.InTotalAmount - invoicePage.DiscountAmount;
-
+                invoicePage.AmountInWord = NumberToWords.ConvertAmount(Convert.ToDouble(invoicePage.PayableAmount));
 
                 IManager manager = new InvoiceManager(invoicePage);
                 manager.Execute();
