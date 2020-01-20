@@ -17,6 +17,15 @@ namespace Invoiceasy.WinForms
         public DealerControl()
         {
             InitializeComponent();
+            this.Load += new System.EventHandler(this.DealerControl_Load);
+        }
+
+        private void DealerControl_Load(object sender, EventArgs e)
+        {
+            this.DGV_DealerList.SelectionMode =
+            DataGridViewSelectionMode.FullRowSelect;
+            this.DGV_DealerList.MultiSelect = false;
+
         }
 
         public void Assign(List<DealerModel> dealerList)
@@ -25,6 +34,12 @@ namespace Invoiceasy.WinForms
             var bindingList = new BindingList<DealerModel>(dealerList);
             var source = new BindingSource(bindingList, null);
             DGV_DealerList.DataSource = source;
+        }
+
+        private void DGV_DealerList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow row = this.DGV_DealerList.SelectedRows[0];
+            DealerModel dealer = row.DataBoundItem as DealerModel;
         }
     }
 }

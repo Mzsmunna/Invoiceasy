@@ -51,8 +51,10 @@
             this.DGV_DealerList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_DealerList.Location = new System.Drawing.Point(32, 90);
             this.DGV_DealerList.Name = "DGV_DealerList";
+            this.DGV_DealerList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGV_DealerList.Size = new System.Drawing.Size(543, 256);
             this.DGV_DealerList.TabIndex = 1;
+            this.DGV_DealerList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_DealerList_CellClick);
             // 
             // DealerControl
             // 
