@@ -63,6 +63,7 @@
             this.BProducts.TabIndex = 3;
             this.BProducts.Text = "Products";
             this.BProducts.UseVisualStyleBackColor = true;
+            this.BProducts.Click += new System.EventHandler(this.BProducts_Click);
             // 
             // BHome
             // 

@@ -50,5 +50,19 @@ namespace Invoiceasy.WinForms
 
 
         }
+
+        private void BProducts_Click(object sender, EventArgs e)
+        {
+            var productFilePath = @"\Libs\Files\CoreFiles\DataFiles\ProductList.txt";
+
+            var productList = CsvHelperUtility.ReadDataFromFile<ProductModel, ProductModelMap>(productFilePath);
+
+            HPanel.Controls.Clear();
+            ProductControl pc = new ProductControl();
+            pc.Assign(productList);
+            HPanel.Controls.Add(pc);
+            pc.Dock = DockStyle.Fill;
+            pc.Show();
+        }
     }
 }

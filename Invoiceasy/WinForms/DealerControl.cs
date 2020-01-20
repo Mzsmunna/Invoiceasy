@@ -31,7 +31,7 @@ namespace Invoiceasy.WinForms
         public void Assign(List<DealerModel> dealerList)
         {
             _dealerList = dealerList;
-            var bindingList = new BindingList<DealerModel>(dealerList);
+            var bindingList = new BindingList<DealerModel>(_dealerList);
             var source = new BindingSource(bindingList, null);
             DGV_DealerList.DataSource = source;
         }
