@@ -32,14 +32,14 @@
             this.BDealers = new System.Windows.Forms.Button();
             this.BProducts = new System.Windows.Forms.Button();
             this.BHome = new System.Windows.Forms.Button();
-            this.BInvoice = new System.Windows.Forms.Button();
+            this.BInvoiceNew = new System.Windows.Forms.Button();
             this.HPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePic)).BeginInit();
             this.SuspendLayout();
             // 
             // ProfilePic
             // 
-            this.ProfilePic.Location = new System.Drawing.Point(659, 13);
+            this.ProfilePic.Location = new System.Drawing.Point(783, 12);
             this.ProfilePic.Name = "ProfilePic";
             this.ProfilePic.Size = new System.Drawing.Size(129, 99);
             this.ProfilePic.TabIndex = 1;
@@ -47,7 +47,7 @@
             // 
             // BDealers
             // 
-            this.BDealers.Location = new System.Drawing.Point(659, 172);
+            this.BDealers.Location = new System.Drawing.Point(783, 174);
             this.BDealers.Name = "BDealers";
             this.BDealers.Size = new System.Drawing.Size(129, 32);
             this.BDealers.TabIndex = 2;
@@ -57,7 +57,7 @@
             // 
             // BProducts
             // 
-            this.BProducts.Location = new System.Drawing.Point(659, 229);
+            this.BProducts.Location = new System.Drawing.Point(783, 226);
             this.BProducts.Name = "BProducts";
             this.BProducts.Size = new System.Drawing.Size(129, 30);
             this.BProducts.TabIndex = 3;
@@ -67,7 +67,7 @@
             // 
             // BHome
             // 
-            this.BHome.Location = new System.Drawing.Point(659, 283);
+            this.BHome.Location = new System.Drawing.Point(783, 272);
             this.BHome.Name = "BHome";
             this.BHome.Size = new System.Drawing.Size(129, 30);
             this.BHome.TabIndex = 4;
@@ -75,29 +75,30 @@
             this.BHome.UseVisualStyleBackColor = true;
             this.BHome.Click += new System.EventHandler(this.BHome_Click);
             // 
-            // BInvoice
+            // BInvoiceNew
             // 
-            this.BInvoice.Location = new System.Drawing.Point(659, 332);
-            this.BInvoice.Name = "BInvoice";
-            this.BInvoice.Size = new System.Drawing.Size(129, 29);
-            this.BInvoice.TabIndex = 5;
-            this.BInvoice.Text = "New Invoice";
-            this.BInvoice.UseVisualStyleBackColor = true;
+            this.BInvoiceNew.Location = new System.Drawing.Point(783, 319);
+            this.BInvoiceNew.Name = "BInvoiceNew";
+            this.BInvoiceNew.Size = new System.Drawing.Size(129, 29);
+            this.BInvoiceNew.TabIndex = 5;
+            this.BInvoiceNew.Text = "New Invoice";
+            this.BInvoiceNew.UseVisualStyleBackColor = true;
+            this.BInvoiceNew.Click += new System.EventHandler(this.BInvoiceNew_Click);
             // 
             // HPanel
             // 
             this.HPanel.Location = new System.Drawing.Point(0, 0);
             this.HPanel.Name = "HPanel";
-            this.HPanel.Size = new System.Drawing.Size(643, 449);
+            this.HPanel.Size = new System.Drawing.Size(759, 587);
             this.HPanel.TabIndex = 6;
             // 
             // LandingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(924, 585);
             this.Controls.Add(this.HPanel);
-            this.Controls.Add(this.BInvoice);
+            this.Controls.Add(this.BInvoiceNew);
             this.Controls.Add(this.BHome);
             this.Controls.Add(this.BProducts);
             this.Controls.Add(this.BDealers);
@@ -114,7 +115,7 @@
         private System.Windows.Forms.Button BDealers;
         private System.Windows.Forms.Button BProducts;
         private System.Windows.Forms.Button BHome;
-        private System.Windows.Forms.Button BInvoice;
+        private System.Windows.Forms.Button BInvoiceNew;
         private System.Windows.Forms.Panel HPanel;
     }
 }

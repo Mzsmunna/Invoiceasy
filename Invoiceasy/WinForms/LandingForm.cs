@@ -64,5 +64,19 @@ namespace Invoiceasy.WinForms
             pc.Dock = DockStyle.Fill;
             pc.Show();
         }
+
+        private void BInvoiceNew_Click(object sender, EventArgs e)
+        {
+            HPanel.Controls.Clear();
+            SelectDealerControl sdc = new SelectDealerControl(HPanel);
+            HPanel.Controls.Add(sdc);
+            sdc.Dock = DockStyle.Fill;
+            sdc.Show();
+
+            //InvoiceControl ic = new InvoiceControl();
+            //HPanel.Controls.Add(ic);
+            //ic.Dock = DockStyle.Fill;
+            //ic.Show();
+        }
     }
 }
