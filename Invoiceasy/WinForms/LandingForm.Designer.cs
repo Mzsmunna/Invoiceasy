@@ -89,14 +89,14 @@
             // 
             this.HPanel.Location = new System.Drawing.Point(0, 0);
             this.HPanel.Name = "HPanel";
-            this.HPanel.Size = new System.Drawing.Size(759, 587);
+            this.HPanel.Size = new System.Drawing.Size(759, 632);
             this.HPanel.TabIndex = 6;
             // 
             // LandingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(924, 585);
+            this.ClientSize = new System.Drawing.Size(924, 630);
             this.Controls.Add(this.HPanel);
             this.Controls.Add(this.BInvoiceNew);
             this.Controls.Add(this.BHome);

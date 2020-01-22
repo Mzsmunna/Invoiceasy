@@ -53,6 +53,8 @@
             this.TBIC_SpecialDiscount = new System.Windows.Forms.TextBox();
             this.TBIC_PayableAmount = new System.Windows.Forms.TextBox();
             this.TBIC_Discount = new System.Windows.Forms.TextBox();
+            this.BIC_Save = new System.Windows.Forms.Button();
+            this.BIC_Cancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_PageItems)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,7 +130,7 @@
             this.DGV_PageItems.AllowUserToOrderColumns = true;
             this.DGV_PageItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_PageItems.Location = new System.Drawing.Point(13, 206);
-            this.DGV_PageItems.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DGV_PageItems.Margin = new System.Windows.Forms.Padding(2);
             this.DGV_PageItems.MultiSelect = false;
             this.DGV_PageItems.Name = "DGV_PageItems";
             this.DGV_PageItems.Size = new System.Drawing.Size(718, 231);
@@ -192,7 +194,7 @@
             // TBIC_No
             // 
             this.TBIC_No.Location = new System.Drawing.Point(86, 49);
-            this.TBIC_No.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TBIC_No.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_No.Name = "TBIC_No";
             this.TBIC_No.Size = new System.Drawing.Size(108, 25);
             this.TBIC_No.TabIndex = 12;
@@ -200,7 +202,7 @@
             // TBIC_To
             // 
             this.TBIC_To.Location = new System.Drawing.Point(86, 88);
-            this.TBIC_To.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TBIC_To.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_To.Name = "TBIC_To";
             this.TBIC_To.Size = new System.Drawing.Size(316, 25);
             this.TBIC_To.TabIndex = 13;
@@ -208,7 +210,7 @@
             // TBIC_Address
             // 
             this.TBIC_Address.Location = new System.Drawing.Point(86, 127);
-            this.TBIC_Address.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TBIC_Address.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_Address.Name = "TBIC_Address";
             this.TBIC_Address.Size = new System.Drawing.Size(459, 25);
             this.TBIC_Address.TabIndex = 14;
@@ -216,7 +218,7 @@
             // TBIC_Contact
             // 
             this.TBIC_Contact.Location = new System.Drawing.Point(86, 167);
-            this.TBIC_Contact.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TBIC_Contact.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_Contact.Name = "TBIC_Contact";
             this.TBIC_Contact.Size = new System.Drawing.Size(316, 25);
             this.TBIC_Contact.TabIndex = 15;
@@ -238,7 +240,7 @@
             this.DTP_IC_Date.Font = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DTP_IC_Date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.DTP_IC_Date.Location = new System.Drawing.Point(605, 49);
-            this.DTP_IC_Date.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DTP_IC_Date.Margin = new System.Windows.Forms.Padding(2);
             this.DTP_IC_Date.Name = "DTP_IC_Date";
             this.DTP_IC_Date.Size = new System.Drawing.Size(126, 25);
             this.DTP_IC_Date.TabIndex = 17;
@@ -248,7 +250,7 @@
             this.CBIC_Code.Font = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBIC_Code.FormattingEnabled = true;
             this.CBIC_Code.Location = new System.Drawing.Point(605, 88);
-            this.CBIC_Code.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CBIC_Code.Margin = new System.Windows.Forms.Padding(2);
             this.CBIC_Code.Name = "CBIC_Code";
             this.CBIC_Code.Size = new System.Drawing.Size(126, 25);
             this.CBIC_Code.TabIndex = 18;
@@ -256,7 +258,7 @@
             // TBIC_Note
             // 
             this.TBIC_Note.Location = new System.Drawing.Point(80, 449);
-            this.TBIC_Note.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TBIC_Note.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_Note.Multiline = true;
             this.TBIC_Note.Name = "TBIC_Note";
             this.TBIC_Note.Size = new System.Drawing.Size(380, 57);
@@ -266,7 +268,7 @@
             // 
             this.TBIC_InWord.Font = new System.Drawing.Font("Microsoft New Tai Lue", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TBIC_InWord.Location = new System.Drawing.Point(80, 533);
-            this.TBIC_InWord.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TBIC_InWord.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_InWord.Name = "TBIC_InWord";
             this.TBIC_InWord.ReadOnly = true;
             this.TBIC_InWord.Size = new System.Drawing.Size(380, 22);
@@ -275,7 +277,7 @@
             // TBIC_TotalAmount
             // 
             this.TBIC_TotalAmount.Location = new System.Drawing.Point(642, 449);
-            this.TBIC_TotalAmount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TBIC_TotalAmount.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_TotalAmount.Name = "TBIC_TotalAmount";
             this.TBIC_TotalAmount.ReadOnly = true;
             this.TBIC_TotalAmount.Size = new System.Drawing.Size(89, 25);
@@ -284,7 +286,7 @@
             // TBIC_SpecialDiscount
             // 
             this.TBIC_SpecialDiscount.Location = new System.Drawing.Point(642, 490);
-            this.TBIC_SpecialDiscount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TBIC_SpecialDiscount.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_SpecialDiscount.Name = "TBIC_SpecialDiscount";
             this.TBIC_SpecialDiscount.ReadOnly = true;
             this.TBIC_SpecialDiscount.Size = new System.Drawing.Size(89, 25);
@@ -293,7 +295,7 @@
             // TBIC_PayableAmount
             // 
             this.TBIC_PayableAmount.Location = new System.Drawing.Point(642, 533);
-            this.TBIC_PayableAmount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TBIC_PayableAmount.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_PayableAmount.Name = "TBIC_PayableAmount";
             this.TBIC_PayableAmount.ReadOnly = true;
             this.TBIC_PayableAmount.Size = new System.Drawing.Size(89, 25);
@@ -302,15 +304,40 @@
             // TBIC_Discount
             // 
             this.TBIC_Discount.Location = new System.Drawing.Point(582, 490);
-            this.TBIC_Discount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TBIC_Discount.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_Discount.Name = "TBIC_Discount";
             this.TBIC_Discount.Size = new System.Drawing.Size(56, 25);
             this.TBIC_Discount.TabIndex = 24;
+            this.TBIC_Discount.TextChanged += new System.EventHandler(this.TBIC_Discount_TextChanged);
+            this.TBIC_Discount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TBIC_Discount_KeyDown);
+            this.TBIC_Discount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TBIC_Discount_KeyPress);
+            // 
+            // BIC_Save
+            // 
+            this.BIC_Save.Location = new System.Drawing.Point(642, 578);
+            this.BIC_Save.Name = "BIC_Save";
+            this.BIC_Save.Size = new System.Drawing.Size(89, 23);
+            this.BIC_Save.TabIndex = 25;
+            this.BIC_Save.Text = "Save";
+            this.BIC_Save.UseVisualStyleBackColor = true;
+            this.BIC_Save.Click += new System.EventHandler(this.BIC_Save_Click);
+            // 
+            // BIC_Cancel
+            // 
+            this.BIC_Cancel.Location = new System.Drawing.Point(13, 578);
+            this.BIC_Cancel.Name = "BIC_Cancel";
+            this.BIC_Cancel.Size = new System.Drawing.Size(75, 23);
+            this.BIC_Cancel.TabIndex = 26;
+            this.BIC_Cancel.Text = "Cancel";
+            this.BIC_Cancel.UseVisualStyleBackColor = true;
+            this.BIC_Cancel.Click += new System.EventHandler(this.BIC_Cancel_Click);
             // 
             // InvoiceControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.BIC_Cancel);
+            this.Controls.Add(this.BIC_Save);
             this.Controls.Add(this.TBIC_Discount);
             this.Controls.Add(this.TBIC_PayableAmount);
             this.Controls.Add(this.TBIC_SpecialDiscount);
@@ -337,9 +364,9 @@
             this.Controls.Add(this.LIC_NO);
             this.Controls.Add(this.LIC_Title);
             this.Font = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "InvoiceControl";
-            this.Size = new System.Drawing.Size(743, 570);
+            this.Size = new System.Drawing.Size(743, 614);
             ((System.ComponentModel.ISupportInitialize)(this.DGV_PageItems)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -373,5 +400,7 @@
         private System.Windows.Forms.TextBox TBIC_SpecialDiscount;
         private System.Windows.Forms.TextBox TBIC_PayableAmount;
         private System.Windows.Forms.TextBox TBIC_Discount;
+        private System.Windows.Forms.Button BIC_Save;
+        private System.Windows.Forms.Button BIC_Cancel;
     }
 }
