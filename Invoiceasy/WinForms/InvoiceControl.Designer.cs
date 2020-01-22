@@ -55,7 +55,12 @@
             this.TBIC_Discount = new System.Windows.Forms.TextBox();
             this.BIC_Save = new System.Windows.Forms.Button();
             this.BIC_Cancel = new System.Windows.Forms.Button();
+            this.InvoiceBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.InvoiceProgressBar = new System.Windows.Forms.ProgressBar();
+            this.IC_ProgressPanel = new System.Windows.Forms.Panel();
+            this.LICPP_InProgress = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_PageItems)).BeginInit();
+            this.IC_ProgressPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // LIC_Title
@@ -332,10 +337,41 @@
             this.BIC_Cancel.UseVisualStyleBackColor = true;
             this.BIC_Cancel.Click += new System.EventHandler(this.BIC_Cancel_Click);
             // 
+            // InvoiceProgressBar
+            // 
+            this.InvoiceProgressBar.Location = new System.Drawing.Point(3, 65);
+            this.InvoiceProgressBar.Name = "InvoiceProgressBar";
+            this.InvoiceProgressBar.Size = new System.Drawing.Size(331, 32);
+            this.InvoiceProgressBar.TabIndex = 27;
+            this.InvoiceProgressBar.Visible = false;
+            // 
+            // IC_ProgressPanel
+            // 
+            this.IC_ProgressPanel.Controls.Add(this.LICPP_InProgress);
+            this.IC_ProgressPanel.Controls.Add(this.InvoiceProgressBar);
+            this.IC_ProgressPanel.Font = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IC_ProgressPanel.Location = new System.Drawing.Point(199, 206);
+            this.IC_ProgressPanel.Name = "IC_ProgressPanel";
+            this.IC_ProgressPanel.Size = new System.Drawing.Size(337, 100);
+            this.IC_ProgressPanel.TabIndex = 28;
+            this.IC_ProgressPanel.Visible = false;
+            // 
+            // LICPP_InProgress
+            // 
+            this.LICPP_InProgress.AutoSize = true;
+            this.LICPP_InProgress.Font = new System.Drawing.Font("Microsoft New Tai Lue", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LICPP_InProgress.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.LICPP_InProgress.Location = new System.Drawing.Point(76, 25);
+            this.LICPP_InProgress.Name = "LICPP_InProgress";
+            this.LICPP_InProgress.Size = new System.Drawing.Size(199, 20);
+            this.LICPP_InProgress.TabIndex = 28;
+            this.LICPP_InProgress.Text = "In Progress!! Please Wait....";
+            // 
             // InvoiceControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.IC_ProgressPanel);
             this.Controls.Add(this.BIC_Cancel);
             this.Controls.Add(this.BIC_Save);
             this.Controls.Add(this.TBIC_Discount);
@@ -368,6 +404,8 @@
             this.Name = "InvoiceControl";
             this.Size = new System.Drawing.Size(743, 614);
             ((System.ComponentModel.ISupportInitialize)(this.DGV_PageItems)).EndInit();
+            this.IC_ProgressPanel.ResumeLayout(false);
+            this.IC_ProgressPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -402,5 +440,9 @@
         private System.Windows.Forms.TextBox TBIC_Discount;
         private System.Windows.Forms.Button BIC_Save;
         private System.Windows.Forms.Button BIC_Cancel;
+        private System.ComponentModel.BackgroundWorker InvoiceBackgroundWorker;
+        private System.Windows.Forms.ProgressBar InvoiceProgressBar;
+        private System.Windows.Forms.Panel IC_ProgressPanel;
+        private System.Windows.Forms.Label LICPP_InProgress;
     }
 }

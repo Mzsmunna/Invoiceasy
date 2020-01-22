@@ -20,10 +20,17 @@ namespace Invoiceasy.WinForms
         private InvoicePageModel _invoicePage;
         private List<ItemModel> _itemList;
         private PageModel _page;
+        //BackgroundWorker worker = new BackgroundWorker();
+        //ProgressBar progressBar1 = new ProgressBar();
 
         public InvoiceControl()
         {
             InitializeComponent();
+
+            //worker.DoWork += (sender, args) => PerformReading();
+            //worker.RunWorkerCompleted += (sender, args) => ReadingCompleted();
+            InvoiceBackgroundWorker.DoWork += BackgroundWorker_DoWork;
+            InvoiceBackgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
         }
 
         public InvoiceControl(Panel hPanel, PageModel page)
@@ -44,9 +51,16 @@ namespace Invoiceasy.WinForms
         private void BIC_Save_Click(object sender, EventArgs e)
         {
             BindInterfaceDataToObject();
-            IManager manager = new InvoiceManager(_invoicePage);
-            manager.Execute();
+            //IManager manager = new InvoiceManager(_invoicePage);
+            //manager.Execute();
 
+            // start the animation
+            IC_ProgressPanel.Visible = true;
+            InvoiceProgressBar.Visible = true;
+            InvoiceProgressBar.Style = ProgressBarStyle.Marquee;
+
+            // start the job
+            InvoiceBackgroundWorker.RunWorkerAsync();
         }
 
         private void BindObjectDataToInterface()
@@ -119,24 +133,26 @@ namespace Invoiceasy.WinForms
         private void TBIC_Discount_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !(char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back) || (e.KeyChar == '.');
-
-            if(!e.Handled)
-            {
-                //_invoicePage.Discount = Convert.ToInt32(TBIC_Discount.Text);
-                //BindInterfaceDataToObject();
-                //BindObjectDataToInterface();
-                //_invoicePage.Discount = Convert.ToInt32(TBIC_Discount.Text);
-                //CalculateAmountAndDiscount();
-                
-
-            }
         }
 
         private void TBIC_Discount_TextChanged(object sender, EventArgs e)
         {
-            //_invoicePage.Discount = Convert.ToInt32(TBIC_Discount.Text);
             BindInterfaceDataToObject();
             BindObjectDataToInterface();
+        }
+
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            //LoadExcel
+            IManager manager = new InvoiceManager(_invoicePage);
+            manager.Execute();
+        }
+
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            IC_ProgressPanel.Visible = false;
+            InvoiceProgressBar.Visible = false;
+            MessageBox.Show("Invoice file has been saved successfully");
         }
     }
 }
