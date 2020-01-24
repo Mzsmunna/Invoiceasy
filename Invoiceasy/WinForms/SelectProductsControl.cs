@@ -64,17 +64,19 @@ namespace Invoiceasy.WinForms
                     {
                         SerialNo = _page.ItemCount.ToString(),
                         ProductDescriptions = product.ItemDescription,
-                        Quantity = product.StockAvailable, //random.Next(1, 100),
+                        Quantity = 1, //random.Next(1, 100),
                         UnitPrice = Convert.ToInt32(product.UnitPrice),
                         Unit = "Pcs"
                     };
 
-                    item.TotalAmount = Convert.ToInt32(item.UnitPrice * item.Quantity);
-                    product.StockAvailable -= item.Quantity;
+                    //item.TotalAmount = Convert.ToInt32(item.UnitPrice * item.Quantity);
+                    //product.StockAvailable -= item.Quantity;
 
                     _page.AllProducts.Add(item);
                     _page.ItemCount++;
                 }
+
+                _page.AllProducts.RemoveAll(item => item == null);
 
                 InvoiceControl ic = new InvoiceControl(_hPanel, _page);
                 _hPanel.Controls.Clear();

@@ -140,6 +140,7 @@
             this.DGV_PageItems.Name = "DGV_PageItems";
             this.DGV_PageItems.Size = new System.Drawing.Size(718, 231);
             this.DGV_PageItems.TabIndex = 6;
+            this.DGV_PageItems.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_PageItems_CellValueChanged);
             // 
             // LIC_Note
             // 

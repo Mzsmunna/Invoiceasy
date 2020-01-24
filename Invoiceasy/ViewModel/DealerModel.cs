@@ -1,6 +1,7 @@
 ﻿using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,9 @@ namespace Invoiceasy.ViewModel
 {
     public class DealerModel
     {
+        [DisplayName("Serial No")]
         public string Sl { get; set; }
+        [DisplayName("Dealer Name")]
         public string DealerName { get; set; }
         public string Address { get; set; }
         public string Contact { get; set; }

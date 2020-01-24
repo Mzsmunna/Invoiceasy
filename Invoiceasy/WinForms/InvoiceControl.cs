@@ -44,13 +44,14 @@ namespace Invoiceasy.WinForms
 
             _itemList = _invoicePage.AllProducts;
             TBIC_Discount.MaxLength = 2;
-
+            
             BindObjectDataToInterface();
         }
 
         private void BIC_Save_Click(object sender, EventArgs e)
         {
             BindInterfaceDataToObject();
+            _invoicePage.Note = "Note : " + TBIC_Note.Text;
             //IManager manager = new InvoiceManager(_invoicePage);
             //manager.Execute();
 
@@ -68,6 +69,10 @@ namespace Invoiceasy.WinForms
             var bindingList = new BindingList<ItemModel>(_invoicePage.AllProducts);
             var source = new BindingSource(bindingList, null);
             DGV_PageItems.DataSource = source;
+
+            DGV_PageItems.Columns[0].ReadOnly = true;
+            DGV_PageItems.Columns[4].ReadOnly = true;
+            DGV_PageItems.Columns[5].Visible = false;
 
             TBIC_To.Text = _invoicePage.Dealer.DealerName;
             TBIC_Address.Text = _invoicePage.Dealer.Address;
@@ -103,6 +108,13 @@ namespace Invoiceasy.WinForms
 
         private void CalculateAmountAndDiscount()
         {
+            foreach(var item in _invoicePage.AllProducts)
+            {
+                item.TotalAmount = Convert.ToInt32(item.UnitPrice * item.Quantity);
+            }
+
+            
+            //product.StockAvailable -= item.Quantity;
             _invoicePage.InTotalAmount = _invoicePage.AllProducts.Sum(x => x.TotalAmount);
             _invoicePage.SpecialDiscount = "Special Discount (" + _invoicePage.Discount + " %)";
             double parcentage = 100;
@@ -154,5 +166,30 @@ namespace Invoiceasy.WinForms
             InvoiceProgressBar.Visible = false;
             MessageBox.Show("Invoice file has been saved successfully");
         }
+
+        private void DGV_PageItems_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRowCollection rows = this.DGV_PageItems.Rows;
+
+            if (rows.Count > 0)
+            {
+                List<ItemModel> allInvoiceItems = new List<ItemModel>();
+                foreach (DataGridViewRow row in rows)
+                {
+                    ItemModel item = JsonConvert.DeserializeObject<ItemModel>(JsonConvert.SerializeObject(row.DataBoundItem));
+                    if (item != null)
+                    {
+                        item.TotalAmount = Convert.ToInt32(item.UnitPrice * item.Quantity);
+                        allInvoiceItems.Add(item);
+                    }
+                }
+
+                _invoicePage.AllProducts = allInvoiceItems;
+
+                BindInterfaceDataToObject();
+                BindObjectDataToInterface();
+            }
+        }
+
     }
 }
