@@ -66,11 +66,9 @@ namespace Invoiceasy.WinForms
                         ProductDescriptions = product.ItemDescription,
                         Quantity = 1, //random.Next(1, 100),
                         UnitPrice = Convert.ToInt32(product.UnitPrice),
-                        Unit = "Pcs"
+                        Unit = "Pcs",
+                        ProductCode = product.ProductCode
                     };
-
-                    //item.TotalAmount = Convert.ToInt32(item.UnitPrice * item.Quantity);
-                    //product.StockAvailable -= item.Quantity;
 
                     _page.AllProducts.Add(item);
                     _page.ItemCount++;
@@ -78,7 +76,7 @@ namespace Invoiceasy.WinForms
 
                 _page.AllProducts.RemoveAll(item => item == null);
 
-                InvoiceControl ic = new InvoiceControl(_hPanel, _page);
+                InvoiceControl ic = new InvoiceControl(_hPanel, _page, _productList);
                 _hPanel.Controls.Clear();
                 _hPanel.Controls.Add(ic);
                 ic.Dock = DockStyle.Fill;

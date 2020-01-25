@@ -22,6 +22,8 @@ namespace Invoiceasy.ViewModel
         public int TotalAmount { get; set; }
         //Ignore for Invoice
         public string Unit { get; set; }
+        //Ignore for Both Invoice & Challan
+        public string ProductCode { get; set; } //Id
 
     }
 }

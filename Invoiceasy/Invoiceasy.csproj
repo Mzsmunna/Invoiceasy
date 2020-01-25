@@ -75,6 +75,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\CsvExport.cs" />
     <Compile Include="Helper\CsvHelperUtility.cs" />
     <Compile Include="Helper\NumberToWords.cs" />
     <Compile Include="Manager\IManager.cs" />

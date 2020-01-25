@@ -11,6 +11,9 @@ using Invoiceasy.ViewModel;
 using Newtonsoft.Json;
 using Invoiceasy.Helper;
 using Invoiceasy.Manager;
+using System.IO;
+using CsvHelper;
+using System.Globalization;
 
 namespace Invoiceasy.WinForms
 {
@@ -18,31 +21,26 @@ namespace Invoiceasy.WinForms
     {
         private Panel _hPanel;
         private InvoicePageModel _invoicePage;
-        private List<ItemModel> _itemList;
+        private List<ProductModel> _productList;
         private PageModel _page;
-        //BackgroundWorker worker = new BackgroundWorker();
-        //ProgressBar progressBar1 = new ProgressBar();
 
         public InvoiceControl()
         {
             InitializeComponent();
 
-            //worker.DoWork += (sender, args) => PerformReading();
-            //worker.RunWorkerCompleted += (sender, args) => ReadingCompleted();
             InvoiceBackgroundWorker.DoWork += BackgroundWorker_DoWork;
             InvoiceBackgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
         }
 
-        public InvoiceControl(Panel hPanel, PageModel page)
+        public InvoiceControl(Panel hPanel, PageModel page, List<ProductModel> productList)
                                     : this()
         {
             _hPanel = hPanel;
             _page = page;
-            //_invoice = _page as InvoicePageModel;
-            string json = JsonConvert.SerializeObject(_page);
-            _invoicePage = JsonConvert.DeserializeObject<InvoicePageModel>(json);           
+            _productList = productList;
 
-            _itemList = _invoicePage.AllProducts;
+            _invoicePage = JsonConvert.DeserializeObject<InvoicePageModel>(JsonConvert.SerializeObject(_page));
+
             TBIC_Discount.MaxLength = 2;
             
             BindObjectDataToInterface();
@@ -52,8 +50,6 @@ namespace Invoiceasy.WinForms
         {
             BindInterfaceDataToObject();
             _invoicePage.Note = "Note : " + TBIC_Note.Text;
-            //IManager manager = new InvoiceManager(_invoicePage);
-            //manager.Execute();
 
             // start the animation
             IC_ProgressPanel.Visible = true;
@@ -70,16 +66,17 @@ namespace Invoiceasy.WinForms
             var source = new BindingSource(bindingList, null);
             DGV_PageItems.DataSource = source;
 
-            DGV_PageItems.Columns[0].ReadOnly = true;
-            DGV_PageItems.Columns[4].ReadOnly = true;
-            DGV_PageItems.Columns[5].Visible = false;
+            DGV_PageItems.Columns["SerialNo"].ReadOnly = true;
+            DGV_PageItems.Columns["TotalAmount"].ReadOnly = true;
+            DGV_PageItems.Columns["Unit"].Visible = false;
+            DGV_PageItems.Columns["ProductCode"].Visible = false;
 
             TBIC_To.Text = _invoicePage.Dealer.DealerName;
             TBIC_Address.Text = _invoicePage.Dealer.Address;
             TBIC_Contact.Text = _invoicePage.Dealer.Contact;
             CBIC_Code.Items.Add(_invoicePage.Dealer.Code);
             CBIC_Code.Text = _invoicePage.Dealer.Code;
-            //TBIC_Note.Text = _invoicePage.Note;
+            TBIC_Note.Text = _invoicePage.Note;
             TBIC_Discount.Text = _invoicePage.Discount.ToString();
 
             CalculateAmountAndDiscount();
@@ -113,8 +110,6 @@ namespace Invoiceasy.WinForms
                 item.TotalAmount = Convert.ToInt32(item.UnitPrice * item.Quantity);
             }
 
-            
-            //product.StockAvailable -= item.Quantity;
             _invoicePage.InTotalAmount = _invoicePage.AllProducts.Sum(x => x.TotalAmount);
             _invoicePage.SpecialDiscount = "Special Discount (" + _invoicePage.Discount + " %)";
             double parcentage = 100;
@@ -135,6 +130,9 @@ namespace Invoiceasy.WinForms
             _page = null;
             _invoicePage = null;
             _invoicePage = null;
+            _productList = null;
+
+            GetBackToHome();
         }
 
         private void TBIC_Discount_KeyDown(object sender, KeyEventArgs e)
@@ -164,7 +162,20 @@ namespace Invoiceasy.WinForms
         {
             IC_ProgressPanel.Visible = false;
             InvoiceProgressBar.Visible = false;
+
+            foreach(var item in _invoicePage.AllProducts)
+            {
+                var product = _productList.Where(x => x.ProductCode.Equals(item.ProductCode)).FirstOrDefault();
+                product.StockAvailable -= item.Quantity;
+            }
+
+            var productFilePath = @"\Libs\Files\CoreFiles\DataFiles\ProductList.txt";
+
+            CsvHelperUtility.WriteDataToFile<ProductModel>(productFilePath, ",", _productList);
+
             MessageBox.Show("Invoice file has been saved successfully");
+
+            GetBackToHome();
         }
 
         private void DGV_PageItems_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -191,5 +202,36 @@ namespace Invoiceasy.WinForms
             }
         }
 
+        private void GetBackToHome()
+        {
+            _hPanel.Controls.Clear();
+            HomeControl hc = new HomeControl();
+            _hPanel.Controls.Add(hc);
+            hc.Dock = DockStyle.Fill;
+            hc.Show();
+        }
+
+        private void DGV_PageItems_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            DataGridViewColumn col = DGV_PageItems.Columns[e.ColumnIndex] as DataGridViewColumn;
+
+            if (col.Name.ToLower() == "unitprice" || col.Name.ToLower() == "quantity")
+            {
+                DataGridViewTextBoxCell cell = DGV_PageItems[e.ColumnIndex, e.RowIndex] as DataGridViewTextBoxCell;
+                if (cell != null)
+                {
+                    char[] chars = e.FormattedValue.ToString().ToCharArray();
+                    foreach (char c in chars)
+                    {
+                        if (char.IsDigit(c) == false)
+                        {
+                            MessageBox.Show("You have to enter digits only");
+                            e.Cancel = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
