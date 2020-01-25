@@ -77,6 +77,7 @@
     </Compile>
     <Compile Include="Helper\CsvExport.cs" />
     <Compile Include="Helper\CsvHelperUtility.cs" />
+    <Compile Include="Helper\FileSystemUtility.cs" />
     <Compile Include="Helper\NumberToWords.cs" />
     <Compile Include="Manager\IManager.cs" />
     <Compile Include="Manager\InvoiceManager.cs" />

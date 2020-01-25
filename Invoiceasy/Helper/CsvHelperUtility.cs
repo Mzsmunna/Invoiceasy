@@ -36,9 +36,16 @@ namespace Invoiceasy.Helper
             }
         }
 
-        public static bool WriteDataToFile<T>(string filePath, string delimiter, List<T> dataList) where T : class
+        public static bool WriteDataToFile<T>(bool ignoreBasePath, string filePath, string delimiter, List<T> dataList) where T : class
         {
-            using (var writer = new StreamWriter(_basePath + filePath))
+            var exactLocation = filePath;
+
+            if (!ignoreBasePath)
+            {
+                exactLocation = _basePath + filePath;
+            }
+            
+            using (var writer = new StreamWriter(exactLocation))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.Configuration.Delimiter = delimiter;

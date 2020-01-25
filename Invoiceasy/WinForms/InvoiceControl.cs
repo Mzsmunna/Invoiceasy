@@ -171,7 +171,21 @@ namespace Invoiceasy.WinForms
 
             var productFilePath = @"\Libs\Files\CoreFiles\DataFiles\ProductList.txt";
 
-            CsvHelperUtility.WriteDataToFile<ProductModel>(productFilePath, ",", _productList);
+            CsvHelperUtility.WriteDataToFile<ProductModel>(false, productFilePath, ",", _productList);
+
+            string invoiceJSON = JsonConvert.SerializeObject(_invoicePage);
+
+            var fileLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Invoiceasy";
+
+            var fileName = "InvoiceLog_" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH-mm-ss") + ".txt";
+
+            FileSystemUtility.Initialize(true, fileName, fileLocation, invoiceJSON);
+            FileSystemUtility.CreateFolder();
+            FileSystemUtility.WriteFile();
+
+            var logFilePath = fileLocation + @"\" + "InvoiceItemList_" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH-mm-ss") + ".txt";
+
+            CsvHelperUtility.WriteDataToFile<ItemModel>(true, logFilePath, ",", _invoicePage.AllProducts);
 
             MessageBox.Show("Invoice file has been saved successfully");
 
