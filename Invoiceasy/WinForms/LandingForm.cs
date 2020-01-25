@@ -22,8 +22,19 @@ namespace Invoiceasy.WinForms
 
         private void LandingForm_Load(object sender, EventArgs e)
         {
-            BHome_Click(new object(), new EventArgs());
-            
+            //BHome_Click(new object(), new EventArgs());
+            HPanel.Controls.Clear();
+            HomeControl hc = new HomeControl();
+            HPanel.Controls.Add(hc);
+            hc.Dock = DockStyle.Fill;
+            hc.Show();
+
+            VPanel.Controls.Clear();
+            SignInMenuControl sic = new SignInMenuControl(VPanel, HPanel);
+            VPanel.Controls.Add(sic);
+            sic.Dock = DockStyle.Fill;
+            sic.Show();
+
         }
 
         private void BDealers_Click(object sender, EventArgs e)
@@ -68,7 +79,7 @@ namespace Invoiceasy.WinForms
         private void BInvoiceNew_Click(object sender, EventArgs e)
         {
             HPanel.Controls.Clear();
-            SelectDealerControl sdc = new SelectDealerControl(HPanel);
+            SelectDealerControl sdc = new SelectDealerControl(HPanel,VPanel);
             HPanel.Controls.Add(sdc);
             sdc.Dock = DockStyle.Fill;
             sdc.Show();

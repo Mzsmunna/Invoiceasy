@@ -15,6 +15,7 @@ namespace Invoiceasy.WinForms
     public partial class SelectDealerControl : UserControl
     {
         private Panel _hPanel;
+        private Panel _vPanel;
         private List<DealerModel> _dealerList;
         private PageModel _page;
         public SelectDealerControl()
@@ -22,10 +23,11 @@ namespace Invoiceasy.WinForms
             InitializeComponent(); this.Load += new System.EventHandler(this.SelectDealerControl_Load);
         }
 
-        public SelectDealerControl(Panel hPanel)
+        public SelectDealerControl(Panel hPanel, Panel vPanel)
                                     : this()
         {
             _hPanel = hPanel;
+            _vPanel = vPanel;
         }
 
         private void SelectDealerControl_Load(object sender, EventArgs e)
@@ -52,7 +54,7 @@ namespace Invoiceasy.WinForms
                 _page = new PageModel();
                 _page.Dealer = dealer;
 
-                SelectProductsControl spc = new SelectProductsControl(_hPanel, _page);
+                SelectProductsControl spc = new SelectProductsControl(_hPanel, _vPanel, _page);
                 _hPanel.Controls.Clear();
                 _hPanel.Controls.Add(spc);
                 spc.Dock = DockStyle.Fill;

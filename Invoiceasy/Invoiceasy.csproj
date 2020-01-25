@@ -133,6 +133,18 @@
     <Compile Include="WinForms\SelectProductsControl.Designer.cs">
       <DependentUpon>SelectProductsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinForms\SignInMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\SignInMenuControl.Designer.cs">
+      <DependentUpon>SignInMenuControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\UserMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\UserMenuControl.Designer.cs">
+      <DependentUpon>UserMenuControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -162,6 +174,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\SelectProductsControl.resx">
       <DependentUpon>SelectProductsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\SignInMenuControl.resx">
+      <DependentUpon>SignInMenuControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\UserMenuControl.resx">
+      <DependentUpon>UserMenuControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Libs\Files\CoreFiles\TemplateFiles\challan-template.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

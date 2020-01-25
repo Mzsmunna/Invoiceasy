@@ -15,6 +15,7 @@ namespace Invoiceasy.WinForms
     public partial class SelectProductsControl : UserControl
     {
         private Panel _hPanel;
+        private Panel _vPanel;
         private List<ProductModel> _productList;
         private PageModel _page;
         public SelectProductsControl()
@@ -23,10 +24,11 @@ namespace Invoiceasy.WinForms
             this.Load += new System.EventHandler(this.SelectProductsControl_Load);
         }
 
-        public SelectProductsControl(Panel hPanel, PageModel page)
+        public SelectProductsControl(Panel hPanel, Panel vPanel, PageModel page)
                                     : this()
         {
             _hPanel = hPanel;
+            _vPanel = vPanel;
             _page = page;
 
             var productFilePath = @"\Libs\Files\CoreFiles\DataFiles\ProductList.txt";
@@ -76,7 +78,7 @@ namespace Invoiceasy.WinForms
 
                 _page.AllProducts.RemoveAll(item => item == null);
 
-                InvoiceControl ic = new InvoiceControl(_hPanel, _page, _productList);
+                InvoiceControl ic = new InvoiceControl(_hPanel, _vPanel, _page, _productList);
                 _hPanel.Controls.Clear();
                 _hPanel.Controls.Add(ic);
                 ic.Dock = DockStyle.Fill;

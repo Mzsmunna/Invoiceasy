@@ -20,6 +20,7 @@ namespace Invoiceasy.WinForms
     public partial class InvoiceControl : UserControl
     {
         private Panel _hPanel;
+        private Panel _vPanel;
         private InvoicePageModel _invoicePage;
         private List<ProductModel> _productList;
         private PageModel _page;
@@ -32,10 +33,11 @@ namespace Invoiceasy.WinForms
             InvoiceBackgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
         }
 
-        public InvoiceControl(Panel hPanel, PageModel page, List<ProductModel> productList)
+        public InvoiceControl(Panel hPanel, Panel vPanel, PageModel page, List<ProductModel> productList)
                                     : this()
         {
             _hPanel = hPanel;
+            _vPanel = vPanel;
             _page = page;
             _productList = productList;
 
