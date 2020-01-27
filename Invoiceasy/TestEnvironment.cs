@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Invoiceasy
 {
@@ -172,7 +173,10 @@ namespace Invoiceasy
                 invoicePage.PayableAmount = invoicePage.InTotalAmount - invoicePage.DiscountAmount;
                 invoicePage.AmountInWord = NumberToWords.ConvertAmount(Convert.ToDouble(invoicePage.PayableAmount));
 
-                IManager manager = new InvoiceManager(invoicePage);
+                //Excel.Application xlApp = new Excel.Application();
+                ExcelApp _excelApp = new ExcelApp();
+                _excelApp.LoadExcelFile(Environment.CurrentDirectory + @"\Libs\Files\CoreFiles\TemplateFiles\invoice-template.xlsx", 1);
+                IManager manager = new InvoiceManager(invoicePage, _excelApp);
                 manager.Execute();
 
                 var challanPage = JsonConvert.DeserializeObject<ChalanPageModel>(json);
