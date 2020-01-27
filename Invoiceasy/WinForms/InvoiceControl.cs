@@ -24,6 +24,7 @@ namespace Invoiceasy.WinForms
         private InvoicePageModel _invoicePage;
         private List<ProductModel> _productList;
         private PageModel _page;
+        private bool _isSuccess = false;
 
         public InvoiceControl()
         {
@@ -157,7 +158,7 @@ namespace Invoiceasy.WinForms
         {
             //LoadExcel
             IManager manager = new InvoiceManager(_invoicePage);
-            manager.Execute();
+            _isSuccess = manager.Execute();
         }
 
         private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -189,7 +190,10 @@ namespace Invoiceasy.WinForms
 
             CsvHelperUtility.WriteDataToFile<ItemModel>(true, logFilePath, ",", _invoicePage.AllProducts);
 
-            MessageBox.Show("Invoice file has been saved successfully");
+            if(_isSuccess)
+                MessageBox.Show("Invoice file has been saved successfully");
+            else
+                MessageBox.Show("Error! Something Went Wrong");
 
             GetBackToHome();
         }
