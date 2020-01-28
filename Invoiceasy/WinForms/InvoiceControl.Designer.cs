@@ -219,7 +219,7 @@
             this.TBIC_Address.Location = new System.Drawing.Point(86, 127);
             this.TBIC_Address.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_Address.Name = "TBIC_Address";
-            this.TBIC_Address.Size = new System.Drawing.Size(459, 25);
+            this.TBIC_Address.Size = new System.Drawing.Size(520, 25);
             this.TBIC_Address.TabIndex = 14;
             // 
             // TBIC_Contact
@@ -261,6 +261,7 @@
             this.CBIC_Code.Name = "CBIC_Code";
             this.CBIC_Code.Size = new System.Drawing.Size(126, 25);
             this.CBIC_Code.TabIndex = 18;
+            this.CBIC_Code.SelectedIndexChanged += new System.EventHandler(this.CBIC_Code_SelectedIndexChanged);
             // 
             // TBIC_Note
             // 

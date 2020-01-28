@@ -19,6 +19,8 @@ namespace Invoiceasy.ViewModel
         public string Note { get; set; }
         public int ItemCount { get; set; } = 1;
         public List<ItemModel> AllProducts { get; set; }
+        public List<ProductModel> ProductList { get; set; }
+        public List<DealerModel> DealerList { get; set; }
 
         public PageModel()
         {

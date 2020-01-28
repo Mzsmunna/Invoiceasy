@@ -53,6 +53,7 @@ namespace Invoiceasy.WinForms
                 DealerModel dealer = row.DataBoundItem as DealerModel;
                 _page = new PageModel();
                 _page.Dealer = dealer;
+                _page.DealerList = _dealerList;
 
                 SelectProductsControl spc = new SelectProductsControl(_hPanel, _vPanel, _page);
                 _hPanel.Controls.Clear();

@@ -77,8 +77,9 @@ namespace Invoiceasy.WinForms
                 }
 
                 _page.AllProducts.RemoveAll(item => item == null);
+                _page.ProductList = _productList;
 
-                InvoiceControl ic = new InvoiceControl(_hPanel, _vPanel, _page, _productList);
+                InvoiceControl ic = new InvoiceControl(_hPanel, _vPanel, _page);
                 _hPanel.Controls.Clear();
                 _hPanel.Controls.Add(ic);
                 ic.Dock = DockStyle.Fill;

@@ -23,7 +23,6 @@ namespace Invoiceasy.WinForms
         private Panel _hPanel;
         private Panel _vPanel;
         private InvoicePageModel _invoicePage;
-        private List<ProductModel> _productList;
         private PageModel _page;
         private bool _isSuccess = false;
 
@@ -43,13 +42,12 @@ namespace Invoiceasy.WinForms
             InvoiceBackgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
         }
 
-        public InvoiceControl(Panel hPanel, Panel vPanel, PageModel page, List<ProductModel> productList)
+        public InvoiceControl(Panel hPanel, Panel vPanel, PageModel page)
                                     : this()
         {
             _hPanel = hPanel;
             _vPanel = vPanel;
             _page = page;
-            _productList = productList;
 
             _invoicePage = JsonConvert.DeserializeObject<InvoicePageModel>(JsonConvert.SerializeObject(_page));
 
@@ -86,8 +84,6 @@ namespace Invoiceasy.WinForms
             TBIC_To.Text = _invoicePage.Dealer.DealerName;
             TBIC_Address.Text = _invoicePage.Dealer.Address;
             TBIC_Contact.Text = _invoicePage.Dealer.Contact;
-            CBIC_Code.Items.Add(_invoicePage.Dealer.Code);
-            CBIC_Code.Text = _invoicePage.Dealer.Code;
             TBIC_Note.Text = _invoicePage.Note;
             TBIC_Discount.Text = _invoicePage.Discount.ToString();
 
@@ -97,6 +93,19 @@ namespace Invoiceasy.WinForms
             TBIC_TotalAmount.Text = _invoicePage.InTotalAmount.ToString();            
             TBIC_SpecialDiscount.Text = _invoicePage.DiscountAmount.ToString();
             TBIC_PayableAmount.Text = _invoicePage.PayableAmount.ToString();
+
+            if(string.IsNullOrEmpty(CBIC_Code.Text))
+            {
+                CBIC_Code.Text = _invoicePage.Dealer.Code;
+                CBIC_Code.Items.AddRange(_page.DealerList.Select(x => x.Code).ToArray());
+            }
+            else
+            {
+                CBIC_Code.Text = _invoicePage.Dealer.Code;
+            }
+            
+            
+            //CBIC_Code.Items.Add(_invoicePage.Dealer.Code);
         }
 
         private void BindInterfaceDataToObject()
@@ -142,7 +151,6 @@ namespace Invoiceasy.WinForms
             _page = null;
             _invoicePage = null;
             _invoicePage = null;
-            _productList = null;
 
             GetBackToHome();
         }
@@ -177,13 +185,13 @@ namespace Invoiceasy.WinForms
 
             foreach(var item in _invoicePage.AllProducts)
             {
-                var product = _productList.Where(x => x.ProductCode.Equals(item.ProductCode)).FirstOrDefault();
+                var product = _page.ProductList.Where(x => x.ProductCode.Equals(item.ProductCode)).FirstOrDefault();
                 product.StockAvailable -= item.Quantity;
             }
 
             var productFilePath = @"\Libs\Files\CoreFiles\DataFiles\ProductList.txt";
 
-            CsvHelperUtility.WriteDataToFile<ProductModel>(false, productFilePath, ",", _productList);
+            CsvHelperUtility.WriteDataToFile<ProductModel>(false, productFilePath, ",", _page.ProductList);
 
             string invoiceJSON = JsonConvert.SerializeObject(_invoicePage);
 
@@ -261,6 +269,16 @@ namespace Invoiceasy.WinForms
                     }
                 }
             }
+        }
+
+        private void CBIC_Code_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedDealer = _page.DealerList.Where(x => x.Code.Equals(CBIC_Code.Text)).FirstOrDefault();
+            BindInterfaceDataToObject();
+            _page.Dealer = selectedDealer;
+            _invoicePage.Dealer = selectedDealer; 
+            BindObjectDataToInterface();
+
         }
     }
 }
