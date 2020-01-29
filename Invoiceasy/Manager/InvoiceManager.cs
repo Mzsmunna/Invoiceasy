@@ -98,16 +98,17 @@ namespace Invoiceasy.Manager
                     //    x++;
                     //}
 
-                    //var filePath2 = @"\Public\Output\in-output.xlsx";
+                    var filePath2 = Environment.CurrentDirectory + @"\Public\Output\invc_output.xlsx";
                     _excelApp._xlWorkBook.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, @"E:\xyz.pdf");
 
                     //PrintOut();
 
+                    //_excelApp._xlWorkBook.Close();
+
+                    _excelApp._xlWorkBook.SaveAs(filePath2, Excel.XlFileFormat.xlOpenXMLWorkbook, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue,
+                    Excel.XlSaveAsAccessMode.xlExclusive, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue);
+
                     _excelApp._xlWorkBook.Close();
-
-                    //_xlWorkBook.SaveAs(filePath2, Excel.XlFileFormat.xlOpenXMLWorkbook, misValue, misValue, misValue, misValue,
-                    //Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
-
                     _excelApp._xlApp.Quit();
 
                     return true;

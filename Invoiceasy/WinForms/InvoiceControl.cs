@@ -58,16 +58,35 @@ namespace Invoiceasy.WinForms
 
         private void BIC_Save_Click(object sender, EventArgs e)
         {
-            BindInterfaceDataToObject();
-            _invoicePage.Note = "Note : " + TBIC_Note.Text;
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Title = "Save";
+            saveDialog.Filter = ".xlsx Files (*.xlsx)|*.xlsx" + "|" +
+                                "Text Files (*.txt)|*.txt" + "|" +
+                                "Image Files (*.png;*.jpg)|*.png;*.jpg" + "|" +
+                                "All Files (*.*)|*.*";
+            saveDialog.FileName = "Invoice_" + DateTime.Now.ToString("dd MMMM yyyy HH-mm-ss");
 
-            // start the animation
-            IC_ProgressPanel.Visible = true;
-            InvoiceProgressBar.Visible = true;
-            InvoiceProgressBar.Style = ProgressBarStyle.Marquee;
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                _invoicePage.FullPath = saveDialog.FileName;
+                //string path = Path.GetFullPath(saveDialog.FileName);
 
-            // start the job
-            InvoiceBackgroundWorker.RunWorkerAsync();
+                BindInterfaceDataToObject();
+                _invoicePage.Note = "Note : " + TBIC_Note.Text;
+
+                // start the animation
+                IC_ProgressPanel.Visible = true;
+                InvoiceProgressBar.Visible = true;
+                InvoiceProgressBar.Style = ProgressBarStyle.Marquee;
+
+                // start the job
+                InvoiceBackgroundWorker.RunWorkerAsync();
+            }
+            else
+            {
+
+            }
+            
         }
 
         private void BindObjectDataToInterface()
@@ -197,7 +216,7 @@ namespace Invoiceasy.WinForms
 
             var fileLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Invoiceasy";
 
-            var fileName = "InvoiceLog_" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH-mm-ss") + ".txt";
+            var fileName = "InvoiceLog_" + DateTime.Now.ToString("dd MMMM yyyy HH-mm-ss") + ".txt";
 
             FileSystemUtility.Initialize(true, fileName, fileLocation, invoiceJSON);
             FileSystemUtility.CreateFolder();
