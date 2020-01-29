@@ -98,14 +98,14 @@ namespace Invoiceasy.Manager
                     //    x++;
                     //}
 
-                    var filePath2 = Environment.CurrentDirectory + @"\Public\Output\invc_output.xlsx";
-                    _excelApp._xlWorkBook.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, @"E:\xyz.pdf");
+                    //var filePath2 = Environment.CurrentDirectory + @"\Public\Output\invc_output.xlsx";
+                    _excelApp._xlWorkBook.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, _invoiceData.FileLocation + _invoiceData.FileName + @".pdf");
 
                     //PrintOut();
 
                     //_excelApp._xlWorkBook.Close();
 
-                    _excelApp._xlWorkBook.SaveAs(filePath2, Excel.XlFileFormat.xlOpenXMLWorkbook, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue,
+                    _excelApp._xlWorkBook.SaveAs(_invoiceData.FullPath, Excel.XlFileFormat.xlOpenXMLWorkbook, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue,
                     Excel.XlSaveAsAccessMode.xlExclusive, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue);
 
                     _excelApp._xlWorkBook.Close();
@@ -123,6 +123,10 @@ namespace Invoiceasy.Manager
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+
+                if (ex.Message.Equals("Exception from HRESULT: 0x800A03EC"))
+                    return true;
+
                 return false;
             }
         }

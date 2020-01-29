@@ -22,6 +22,7 @@ namespace Invoiceasy.ViewModel
         public List<ProductModel> ProductList { get; set; }
         public List<DealerModel> DealerList { get; set; }
         public string FileName { get; set; }
+        public string FileLocation { get; set; }
         public string FullPath { get; set; }
 
         public PageModel()

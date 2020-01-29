@@ -69,6 +69,16 @@ namespace Invoiceasy.WinForms
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
                 _invoicePage.FullPath = saveDialog.FileName;
+                _invoicePage.FileLocation = Path.GetDirectoryName(saveDialog.FileName) + @"\";
+                _invoicePage.FileName = Path.GetFileNameWithoutExtension(saveDialog.FileName);
+
+                //int idx = _invoicePage.FullPath.LastIndexOf(@"\");
+
+                //if(idx != -1)
+                //{
+                //    _invoicePage.FileLocation = _invoicePage.FullPath.Substring(0, idx + 1);
+                //    _invoicePage.FileName = _invoicePage.FullPath.Substring(idx + 1);
+                //}
                 //string path = Path.GetFullPath(saveDialog.FileName);
 
                 BindInterfaceDataToObject();
