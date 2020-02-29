@@ -1,0 +1,1 @@
+Id,Sl,Date,DealerName,DealerCode,Address,Contact,IC_NO,MR_NO,OpeningBalance,SalesAmount,CollectionAmount,ClosingBalance,Remarks,SyncType

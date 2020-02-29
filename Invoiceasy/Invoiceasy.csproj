@@ -12,6 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,9 +34,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>invoiceasy.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Crc32C.NET, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Crc32C.NET.1.0.5.0\lib\net20\Crc32C.NET.dll</HintPath>
+    </Reference>
     <Reference Include="CsvHelper, Version=13.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
       <HintPath>..\packages\CsvHelper.13.0.0\lib\net47\CsvHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="DnsClient, Version=1.2.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.2.0\lib\net471\DnsClient.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -43,13 +54,40 @@
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.10.2\lib\net452\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.10.2\lib\net452\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.10.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.10.2\lib\net452\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Libmongocrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Libmongocrypt.1.0.0\lib\net452\MongoDB.Libmongocrypt.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SharpCompress, Version=0.23.0.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpCompress.0.23.0\lib\net45\SharpCompress.dll</HintPath>
+    </Reference>
+    <Reference Include="Snappy.NET, Version=1.1.1.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Snappy.NET.1.1.1.8\lib\net45\Snappy.NET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
@@ -69,29 +107,56 @@
     <Compile Include="Entity\IEntity.cs" />
     <Compile Include="Entity\ProductEntity.cs" />
     <Compile Include="Entity\UserEntity.cs" />
+    <Compile Include="Enum\InvoiceChallanCode.cs" />
+    <Compile Include="Enum\PageType.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\AppConfigure.cs" />
+    <Compile Include="Helper\Clone.cs" />
+    <Compile Include="Helper\CommonHelper.cs" />
     <Compile Include="Helper\CsvExport.cs" />
     <Compile Include="Helper\CsvHelperUtility.cs" />
     <Compile Include="Helper\ExcelApp.cs" />
+    <Compile Include="Helper\Experiment.cs" />
     <Compile Include="Helper\FileSystemUtility.cs" />
     <Compile Include="Helper\NumberToWords.cs" />
+    <Compile Include="Interface\IConfigService.cs" />
+    <Compile Include="Interface\IDatabaseContext.cs" />
+    <Compile Include="Interface\IDatabaseContextContainer.cs" />
+    <Compile Include="Manager\ChallanManager.cs" />
+    <Compile Include="Manager\DealerManager.cs" />
     <Compile Include="Manager\IManager.cs" />
     <Compile Include="Manager\InvoiceManager.cs" />
+    <Compile Include="Manager\ProductManager.cs" />
+    <Compile Include="Manager\SalesAndCollectionManager.cs" />
+    <Compile Include="MongoRepository\Core\MongoDbContext.cs" />
+    <Compile Include="MongoRepository\Core\MongoDBCore.cs" />
+    <Compile Include="MongoRepository\Core\MongoDBHelper.cs" />
+    <Compile Include="MongoRepository\Core\MongoParam.cs" />
+    <Compile Include="MongoRepository\Repositories\DealerRepository.cs" />
+    <Compile Include="MongoRepository\Repositories\RepositoryBase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\ConfigService.cs" />
     <Compile Include="TestEnvironment.cs" />
-    <Compile Include="ViewModel\ChalanPageModel.cs" />
+    <Compile Include="ViewModel\ChallanPageModel.cs" />
     <Compile Include="ViewModel\DealerModel.cs" />
     <Compile Include="ViewModel\InvoicePageModel.cs" />
     <Compile Include="ViewModel\ItemModel.cs" />
     <Compile Include="ViewModel\PageModel.cs" />
     <Compile Include="ViewModel\ProductModel.cs" />
+    <Compile Include="ViewModel\SalesAndCollectionModel.cs" />
     <Compile Include="ViewModel\UserModel.cs" />
+    <Compile Include="WinForms\ChallanControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\ChallanControl.Designer.cs">
+      <DependentUpon>ChallanControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\DealerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -110,17 +175,53 @@
     <Compile Include="WinForms\InvoiceControl.Designer.cs">
       <DependentUpon>InvoiceControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinForms\ICHistoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\ICHistoryControl.Designer.cs">
+      <DependentUpon>ICHistoryControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\LandingForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WinForms\LandingForm.Designer.cs">
       <DependentUpon>LandingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinForms\PopupCollectionModelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\PopupCollectionModelControl.Designer.cs">
+      <DependentUpon>PopupCollectionModelControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\PopupProductModelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\PopupProductModelControl.Designer.cs">
+      <DependentUpon>PopupProductModelControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\PopupModalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\PopupModalForm.Designer.cs">
+      <DependentUpon>PopupModalForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\PopupDealerModelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\PopupDealerModelControl.Designer.cs">
+      <DependentUpon>PopupDealerModelControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\ProductControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WinForms\ProductControl.Designer.cs">
       <DependentUpon>ProductControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\SalesAndCollectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\SalesAndCollectionControl.Designer.cs">
+      <DependentUpon>SalesAndCollectionControl.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\SelectDealerControl.cs">
       <SubType>UserControl</SubType>
@@ -155,6 +256,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="WinForms\ChallanControl.resx">
+      <DependentUpon>ChallanControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinForms\DealerControl.resx">
       <DependentUpon>DealerControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -164,11 +268,29 @@
     <EmbeddedResource Include="WinForms\InvoiceControl.resx">
       <DependentUpon>InvoiceControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\ICHistoryControl.resx">
+      <DependentUpon>ICHistoryControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinForms\LandingForm.resx">
       <DependentUpon>LandingForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\PopupCollectionModelControl.resx">
+      <DependentUpon>PopupCollectionModelControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\PopupProductModelControl.resx">
+      <DependentUpon>PopupProductModelControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\PopupModalForm.resx">
+      <DependentUpon>PopupModalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\PopupDealerModelControl.resx">
+      <DependentUpon>PopupDealerModelControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinForms\ProductControl.resx">
       <DependentUpon>ProductControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\SalesAndCollectionControl.resx">
+      <DependentUpon>SalesAndCollectionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\SelectDealerControl.resx">
       <DependentUpon>SelectDealerControl.cs</DependentUpon>
@@ -182,12 +304,21 @@
     <EmbeddedResource Include="WinForms\UserMenuControl.resx">
       <DependentUpon>UserMenuControl.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Libs\Files\CoreFiles\TemplateFiles\challan-template.xlsx">
+    <Content Include="Libs\Files\CoreFiles\DataFiles\SalesAndCollectionList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Libs\Files\CoreFiles\TemplateFiles\invoice-template.xlsx">
+    </Content>
+    <Content Include="Libs\Files\CoreFiles\TemplateFiles\challan-template.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="Libs\Files\CoreFiles\TemplateFiles\invoice-template.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libs\Files\CoreFiles\TemplateFiles\daily-Sales-and-collection-report.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libs\Files\CoreFiles\TemplateFiles\dealer-party-ledger.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -203,6 +334,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="invoiceasy.ico" />
     <Content Include="Libs\Files\CoreFiles\DataFiles\DelerList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -214,12 +346,16 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Enum\" />
-    <Folder Include="Interface\" />
     <Folder Include="Libs\Files\CoreFiles\GeneratedFiles\" />
-    <Folder Include="MongoRepository\" />
     <Folder Include="Public\Output\" />
     <Folder Include="SqlRepository\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Libmongocrypt.1.0.0\build\MongoDB.Libmongocrypt.targets'))" />
+  </Target>
 </Project>

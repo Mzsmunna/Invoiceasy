@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Invoiceasy.ViewModel
+namespace Invoiceasy.Interface
 {
-    public class ChalanPageModel : PageModel
+    public interface IDatabaseContextContainer<T> : IDatabaseContext
     {
-        public int TotalQuality { get; set; }
+        T GetInstance();
     }
 }

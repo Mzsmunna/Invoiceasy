@@ -155,15 +155,12 @@ namespace Invoiceasy
                 Console.Out.WriteLine("INVOICE PAGE! NO:");
                 invoicePage.No = Console.ReadLine();
                 invoicePage.Dealer = assignDealer;
-                //invoicePage.To = assignDealer.DealerName;
-                //invoicePage.Code = assignDealer.Code;
-                //invoicePage.Address = assignDealer.Address;
-                //invoicePage.Contact = assignDealer.Contact;
+
                 invoicePage.Date = DateTime.Now.ToString("MMMM dd, yyyy");
                 Console.Out.WriteLine("INVOICE PAGE! NOTE:");
                 invoicePage.Note = Console.ReadLine();
                 invoicePage.InTotalAmount = invoicePage.AllProducts.Sum(x => x.TotalAmount);
-                //invoicePage.AmountInWord = NumberToWords.ConvertAmount(Convert.ToDouble(invoicePage.InTotalAmount));
+
                 Console.Out.WriteLine("Discount In Percentage :");
                 invoicePage.Discount = Convert.ToInt32(Console.ReadLine());
                 invoicePage.SpecialDiscount += "(" + invoicePage.Discount + " %)";
@@ -173,13 +170,10 @@ namespace Invoiceasy
                 invoicePage.PayableAmount = invoicePage.InTotalAmount - invoicePage.DiscountAmount;
                 invoicePage.AmountInWord = NumberToWords.ConvertAmount(Convert.ToDouble(invoicePage.PayableAmount));
 
-                //Excel.Application xlApp = new Excel.Application();
-                //ExcelApp _excelApp = new ExcelApp();
-                //ExcelApp.LoadExcelFile(Environment.CurrentDirectory + @"\Libs\Files\CoreFiles\TemplateFiles\invoice-template.xlsx", 1);
                 IManager manager = new InvoiceManager(invoicePage);
                 manager.Execute();
 
-                var challanPage = JsonConvert.DeserializeObject<ChalanPageModel>(json);
+                var challanPage = JsonConvert.DeserializeObject<ChallanPageModel>(json);
                 challanPage.TotalQuality = challanPage.AllProducts.Sum(x => x.Quantity);
 
                 Console.ReadKey();

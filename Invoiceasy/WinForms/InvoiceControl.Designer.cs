@@ -100,7 +100,7 @@
             // 
             this.LIC_Date.AutoSize = true;
             this.LIC_Date.Font = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LIC_Date.Location = new System.Drawing.Point(542, 52);
+            this.LIC_Date.Location = new System.Drawing.Point(560, 55);
             this.LIC_Date.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LIC_Date.Name = "LIC_Date";
             this.LIC_Date.Size = new System.Drawing.Size(46, 17);
@@ -111,7 +111,7 @@
             // 
             this.LIC_Code.AutoSize = true;
             this.LIC_Code.Font = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LIC_Code.Location = new System.Drawing.Point(542, 91);
+            this.LIC_Code.Location = new System.Drawing.Point(560, 91);
             this.LIC_Code.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LIC_Code.Name = "LIC_Code";
             this.LIC_Code.Size = new System.Drawing.Size(50, 17);
@@ -133,15 +133,17 @@
             // 
             this.DGV_PageItems.AllowDrop = true;
             this.DGV_PageItems.AllowUserToOrderColumns = true;
+            this.DGV_PageItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGV_PageItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_PageItems.Location = new System.Drawing.Point(13, 206);
             this.DGV_PageItems.Margin = new System.Windows.Forms.Padding(2);
             this.DGV_PageItems.MultiSelect = false;
             this.DGV_PageItems.Name = "DGV_PageItems";
-            this.DGV_PageItems.Size = new System.Drawing.Size(718, 231);
+            this.DGV_PageItems.Size = new System.Drawing.Size(743, 231);
             this.DGV_PageItems.TabIndex = 6;
             this.DGV_PageItems.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.DGV_PageItems_CellValidating);
             this.DGV_PageItems.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_PageItems_CellValueChanged);
+            this.DGV_PageItems.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DGV_PageItems_RowValidating);
             // 
             // LIC_Note
             // 
@@ -158,7 +160,7 @@
             // 
             this.LIC_TotalAmount.AutoSize = true;
             this.LIC_TotalAmount.Font = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LIC_TotalAmount.Location = new System.Drawing.Point(526, 452);
+            this.LIC_TotalAmount.Location = new System.Drawing.Point(560, 452);
             this.LIC_TotalAmount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LIC_TotalAmount.Name = "LIC_TotalAmount";
             this.LIC_TotalAmount.Size = new System.Drawing.Size(97, 17);
@@ -169,7 +171,7 @@
             // 
             this.LIC_SpecialDiscount.AutoSize = true;
             this.LIC_SpecialDiscount.Font = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LIC_SpecialDiscount.Location = new System.Drawing.Point(464, 493);
+            this.LIC_SpecialDiscount.Location = new System.Drawing.Point(489, 489);
             this.LIC_SpecialDiscount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LIC_SpecialDiscount.Name = "LIC_SpecialDiscount";
             this.LIC_SpecialDiscount.Size = new System.Drawing.Size(114, 17);
@@ -180,7 +182,7 @@
             // 
             this.LIC_PayableAmount.AutoSize = true;
             this.LIC_PayableAmount.Font = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LIC_PayableAmount.Location = new System.Drawing.Point(464, 536);
+            this.LIC_PayableAmount.Location = new System.Drawing.Point(487, 535);
             this.LIC_PayableAmount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LIC_PayableAmount.Name = "LIC_PayableAmount";
             this.LIC_PayableAmount.Size = new System.Drawing.Size(170, 17);
@@ -246,7 +248,7 @@
             this.DTP_IC_Date.CalendarFont = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DTP_IC_Date.Font = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DTP_IC_Date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.DTP_IC_Date.Location = new System.Drawing.Point(605, 49);
+            this.DTP_IC_Date.Location = new System.Drawing.Point(630, 49);
             this.DTP_IC_Date.Margin = new System.Windows.Forms.Padding(2);
             this.DTP_IC_Date.Name = "DTP_IC_Date";
             this.DTP_IC_Date.Size = new System.Drawing.Size(126, 25);
@@ -256,7 +258,7 @@
             // 
             this.CBIC_Code.Font = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CBIC_Code.FormattingEnabled = true;
-            this.CBIC_Code.Location = new System.Drawing.Point(605, 88);
+            this.CBIC_Code.Location = new System.Drawing.Point(630, 83);
             this.CBIC_Code.Margin = new System.Windows.Forms.Padding(2);
             this.CBIC_Code.Name = "CBIC_Code";
             this.CBIC_Code.Size = new System.Drawing.Size(126, 25);
@@ -269,7 +271,7 @@
             this.TBIC_Note.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_Note.Multiline = true;
             this.TBIC_Note.Name = "TBIC_Note";
-            this.TBIC_Note.Size = new System.Drawing.Size(380, 57);
+            this.TBIC_Note.Size = new System.Drawing.Size(389, 57);
             this.TBIC_Note.TabIndex = 19;
             // 
             // TBIC_InWord
@@ -279,12 +281,12 @@
             this.TBIC_InWord.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_InWord.Name = "TBIC_InWord";
             this.TBIC_InWord.ReadOnly = true;
-            this.TBIC_InWord.Size = new System.Drawing.Size(380, 22);
+            this.TBIC_InWord.Size = new System.Drawing.Size(389, 22);
             this.TBIC_InWord.TabIndex = 20;
             // 
             // TBIC_TotalAmount
             // 
-            this.TBIC_TotalAmount.Location = new System.Drawing.Point(642, 449);
+            this.TBIC_TotalAmount.Location = new System.Drawing.Point(667, 444);
             this.TBIC_TotalAmount.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_TotalAmount.Name = "TBIC_TotalAmount";
             this.TBIC_TotalAmount.ReadOnly = true;
@@ -293,7 +295,7 @@
             // 
             // TBIC_SpecialDiscount
             // 
-            this.TBIC_SpecialDiscount.Location = new System.Drawing.Point(642, 490);
+            this.TBIC_SpecialDiscount.Location = new System.Drawing.Point(667, 485);
             this.TBIC_SpecialDiscount.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_SpecialDiscount.Name = "TBIC_SpecialDiscount";
             this.TBIC_SpecialDiscount.ReadOnly = true;
@@ -302,7 +304,7 @@
             // 
             // TBIC_PayableAmount
             // 
-            this.TBIC_PayableAmount.Location = new System.Drawing.Point(642, 533);
+            this.TBIC_PayableAmount.Location = new System.Drawing.Point(667, 532);
             this.TBIC_PayableAmount.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_PayableAmount.Name = "TBIC_PayableAmount";
             this.TBIC_PayableAmount.ReadOnly = true;
@@ -311,18 +313,17 @@
             // 
             // TBIC_Discount
             // 
-            this.TBIC_Discount.Location = new System.Drawing.Point(582, 490);
+            this.TBIC_Discount.Location = new System.Drawing.Point(607, 485);
             this.TBIC_Discount.Margin = new System.Windows.Forms.Padding(2);
             this.TBIC_Discount.Name = "TBIC_Discount";
             this.TBIC_Discount.Size = new System.Drawing.Size(56, 25);
             this.TBIC_Discount.TabIndex = 24;
             this.TBIC_Discount.TextChanged += new System.EventHandler(this.TBIC_Discount_TextChanged);
-            this.TBIC_Discount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TBIC_Discount_KeyDown);
             this.TBIC_Discount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TBIC_Discount_KeyPress);
             // 
             // BIC_Save
             // 
-            this.BIC_Save.Location = new System.Drawing.Point(642, 578);
+            this.BIC_Save.Location = new System.Drawing.Point(667, 578);
             this.BIC_Save.Name = "BIC_Save";
             this.BIC_Save.Size = new System.Drawing.Size(89, 23);
             this.BIC_Save.TabIndex = 25;
@@ -353,7 +354,7 @@
             this.IC_ProgressPanel.Controls.Add(this.LICPP_InProgress);
             this.IC_ProgressPanel.Controls.Add(this.InvoiceProgressBar);
             this.IC_ProgressPanel.Font = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IC_ProgressPanel.Location = new System.Drawing.Point(199, 206);
+            this.IC_ProgressPanel.Location = new System.Drawing.Point(227, 206);
             this.IC_ProgressPanel.Name = "IC_ProgressPanel";
             this.IC_ProgressPanel.Size = new System.Drawing.Size(337, 100);
             this.IC_ProgressPanel.TabIndex = 28;
@@ -364,7 +365,7 @@
             this.LICPP_InProgress.AutoSize = true;
             this.LICPP_InProgress.Font = new System.Drawing.Font("Microsoft New Tai Lue", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LICPP_InProgress.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.LICPP_InProgress.Location = new System.Drawing.Point(76, 25);
+            this.LICPP_InProgress.Location = new System.Drawing.Point(71, 23);
             this.LICPP_InProgress.Name = "LICPP_InProgress";
             this.LICPP_InProgress.Size = new System.Drawing.Size(199, 20);
             this.LICPP_InProgress.TabIndex = 28;
@@ -405,7 +406,7 @@
             this.Font = new System.Drawing.Font("Microsoft New Tai Lue", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "InvoiceControl";
-            this.Size = new System.Drawing.Size(743, 614);
+            this.Size = new System.Drawing.Size(770, 630);
             ((System.ComponentModel.ISupportInitialize)(this.DGV_PageItems)).EndInit();
             this.IC_ProgressPanel.ResumeLayout(false);
             this.IC_ProgressPanel.PerformLayout();

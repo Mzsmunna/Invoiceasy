@@ -23,11 +23,11 @@ namespace Invoiceasy.Helper
                 Int64 amount_dec = (Int64)Math.Round((amount - (double)(amount_int)) * 100);
                 if (amount_dec == 0)
                 {
-                    return Convert(amount_int) + " Only.";
+                    return Convert(amount_int) + " Taka Only.";
                 }
                 else
                 {
-                    return Convert(amount_int) + " Point " + Convert(amount_dec) + " Only.";
+                    return Convert(amount_int) + " Point " + Convert(amount_dec) + " Taka Only.";
                 }
             }
             catch (Exception e)

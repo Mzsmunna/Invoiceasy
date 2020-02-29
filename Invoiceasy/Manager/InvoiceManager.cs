@@ -5,27 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Invoiceasy.Manager
 {
     public class InvoiceManager : IManager
     {
-        //private Excel.Application _xlApp { set; get; }
         private InvoicePageModel _invoiceData { set; get; }
-        //private Excel.Workbook _xlWorkBook { get; set; }
-        //private Excel.Worksheet _xlWorkSheet { get; set; }
-        //private Excel.Range _xlRange { get; set; }
-        //private object _misValue { get; set; }
-
-        //private ExcelApp _excelApp { set; get; }
 
         public InvoiceManager(InvoicePageModel invoiceData)
         {
             _invoiceData = invoiceData;
-            //_xlApp = xlApp;
-            //_excelApp = excelApp;
+            //ExcelApp.LoadExcelFile(appDocumentPath + @"\Libs\Files\CoreFiles\TemplateFiles\invoice-template.xlsx", 1);
             ExcelApp.LoadExcelFile(Environment.CurrentDirectory + @"\Libs\Files\CoreFiles\TemplateFiles\invoice-template.xlsx", 1);
         }
 
@@ -38,22 +29,11 @@ namespace Invoiceasy.Manager
                 {
                     //**Writting the Excel File: **
 
-                    string basePath = Environment.CurrentDirectory;
-                    var filePath = @"\Libs\Files\CoreFiles\TemplateFiles\invoice-template.xlsx";
-                    filePath = basePath + filePath;
-
-                    //_xlApp = new Excel.Application();
-                    //--Dev--_misValue = System.Reflection.Missing.Value; // needed when creating or saving a excel file
-
-                    //_xlWorkBook = _xlApp.Workbooks.Add(misValue); // when creating a new excel file
-                    //--Dev--_xlWorkBook = _xlApp.Workbooks.Open(filePath, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-                    //--Dev--_xlWorkSheet = (Excel.Worksheet)_xlWorkBook.Worksheets.get_Item(1);
-
-                    //Console.WriteLine((_excelApp._xlWorkSheet.Cells[12, 2] as Excel.Range).Text);
-                    //Console.WriteLine((_excelApp._xlWorkSheet.Cells[12, 4] as Excel.Range).Text);
-                    //Console.WriteLine((_excelApp._xlWorkSheet.Cells[12, 5] as Excel.Range).Text);
-                    //Console.WriteLine((_excelApp._xlWorkSheet.Cells[12, 6] as Excel.Range).Text);
-                    //Console.WriteLine((_excelApp._xlWorkSheet.Cells[12, 7] as Excel.Range).Text);
+                    //Console.WriteLine((ExcelApp.XlWorkSheet.Cells[12, 2] as Excel.Range).Text);
+                    //Console.WriteLine((ExcelApp.XlWorkSheet.Cells[12, 4] as Excel.Range).Text);
+                    //Console.WriteLine((ExcelApp.XlWorkSheet.Cells[12, 5] as Excel.Range).Text);
+                    //Console.WriteLine((ExcelApp.XlWorkSheet.Cells[12, 6] as Excel.Range).Text);
+                    //Console.WriteLine((ExcelApp.XlWorkSheet.Cells[12, 7] as Excel.Range).Text);
 
                     ExcelApp.XlWorkSheet.Cells[8, 3] = _invoiceData.No;
                     ExcelApp.XlWorkSheet.Cells[8, 7] = _invoiceData.Date;
@@ -61,7 +41,6 @@ namespace Invoiceasy.Manager
                     ExcelApp.XlWorkSheet.Cells[9, 7] = _invoiceData.Dealer.Code;
                     ExcelApp.XlWorkSheet.Cells[10, 3] = _invoiceData.Dealer.Address;
                     ExcelApp.XlWorkSheet.Cells[11, 3] = _invoiceData.Dealer.Contact;
-                    
 
                     if (_invoiceData.AllProducts != null)
                     {
@@ -93,24 +72,36 @@ namespace Invoiceasy.Manager
                     ExcelApp.XlWorkSheet.Cells[41, 7] = _invoiceData.DiscountAmount;
                     ExcelApp.XlWorkSheet.Cells[42, 7] = _invoiceData.PayableAmount;
 
-                    //while (x <= 39)
-                    //{
-                    //    _xlWorkSheet.Cells[x, 7] = "";
-                    //    x++;
-                    //}
-
-                    //var filePath2 = Environment.CurrentDirectory + @"\Public\Output\invc_output.xlsx";
-                    ExcelApp.XlWorkBook.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, _invoiceData.FileLocation + _invoiceData.FileName + @".pdf");
+                    while (x <= 39)
+                    {
+                        ExcelApp.XlWorkSheet.Cells[x, 7] = "";
+                        x++;
+                    }
 
                     //PrintOut();
 
-                    //_excelApp._xlWorkBook.Close();
+                    //setup your page orientation + fit to pages
+                    //ExcelApp.XlWorkSheet.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
+                    //ExcelApp.XlWorkSheet.PageSetup.Zoom = false;
+                    //ExcelApp.XlWorkSheet.PageSetup.FitToPagesWide = 1;
+                        //ExcelApp.XlWorkSheet.PageSetup.FitToPagesTall = false;
 
-                    ExcelApp.XlWorkBook.SaveAs(_invoiceData.FullPath, Excel.XlFileFormat.xlOpenXMLWorkbook, ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue,
-                    Excel.XlSaveAsAccessMode.xlExclusive, ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue);
+                    //save as PDF
+                    ExcelApp.SaveAsPDF(_invoiceData.FileLocation + _invoiceData.FileName + @".pdf");
+
+                    //save as Xlsx
+                    ExcelApp.SaveExcelFile(_invoiceData.FullPath);
+
+                    //foreach (Excel.Worksheet ws in ExcelApp.XlWorkBook.Worksheets.OfType<Excel.Worksheet>())
+                    //{
+                    //    ws.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
+                    //    ws.PageSetup.Zoom = false;
+                    //    ws.PageSetup.FitToPagesWide = 1;
+                    //    ws.PageSetup.FitToPagesTall = false;
+                    //}
 
                     ExcelApp.XlWorkBook.Close();
-                    ExcelApp.XlApp.Quit();
+                    //ExcelApp.XlApp.Quit();
 
                     return true;
                 }

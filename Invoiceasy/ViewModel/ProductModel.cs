@@ -13,12 +13,16 @@ namespace Invoiceasy.ViewModel
         [DisplayName("Serial No")]
         public string Sl { get; set; }
         public string Category { get; set; }
+
         [DisplayName("Product Code")]
         public string ProductCode { get; set; }
+
         [DisplayName("Item Description")]
         public string ItemDescription { get; set; }
+
         [DisplayName("Unit Price")]
         public string UnitPrice { get; set; }
+
         [DisplayName("Stock Available")]
         public int StockAvailable { get; set; }
         public string Image { get; set; }

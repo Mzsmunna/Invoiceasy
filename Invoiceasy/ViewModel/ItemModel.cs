@@ -7,23 +7,28 @@ using System.Threading.Tasks;
 
 namespace Invoiceasy.ViewModel
 {
+    [Serializable()]
     public class ItemModel
     {
         [DisplayName("Serial No")]
         public string SerialNo { get; set; }
+        //Ignore for Both Invoice & Challan
+        public string ProductCode { get; set; } //Like Id
+
         [DisplayName("Product Descriptions")]
         public string ProductDescriptions { get; set; }
+
         //Ignore for Challan
         [DisplayName("Unit Price")]
         public int UnitPrice { get; set; }
-        public int Quantity { get; set; }       
+        public int Quantity { get; set; }    
+        
         //Ignore for Challan
         [DisplayName("Total Amount")]
         public int TotalAmount { get; set; }
+
         //Ignore for Invoice
         public string Unit { get; set; }
-        //Ignore for Both Invoice & Challan
-        public string ProductCode { get; set; } //Id
 
     }
 }

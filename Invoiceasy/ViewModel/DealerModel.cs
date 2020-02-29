@@ -12,6 +12,7 @@ namespace Invoiceasy.ViewModel
     {
         [DisplayName("Serial No")]
         public string Sl { get; set; }
+
         [DisplayName("Dealer Name")]
         public string DealerName { get; set; }
         public string Address { get; set; }
@@ -24,7 +25,7 @@ namespace Invoiceasy.ViewModel
     {
         public DealerModelMap()
         {
-            Map(m => m.Sl).Name("id", "ID", "SL", "Id", "sl");
+            Map(m => m.Sl).Name("Sl", "id", "ID", "SL", "Id", "sl");
             Map(m => m.DealerName).Name("DealerName", "Dealer Name", "dealer name");
             Map(m => m.Address).Name("Address", "address");
             Map(m => m.Contact).Name("Contact", "contact");

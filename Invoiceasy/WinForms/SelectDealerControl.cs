@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Invoiceasy.ViewModel;
 using Invoiceasy.Helper;
+using Invoiceasy.Manager;
 
 namespace Invoiceasy.WinForms
 {
@@ -20,7 +21,8 @@ namespace Invoiceasy.WinForms
         private PageModel _page;
         public SelectDealerControl()
         {
-            InitializeComponent(); this.Load += new System.EventHandler(this.SelectDealerControl_Load);
+            InitializeComponent(); 
+            this.Load += new System.EventHandler(this.SelectDealerControl_Load);
         }
 
         public SelectDealerControl(Panel hPanel, Panel vPanel)
@@ -32,13 +34,10 @@ namespace Invoiceasy.WinForms
 
         private void SelectDealerControl_Load(object sender, EventArgs e)
         {
-            this.DGV_SDC_Dealers.SelectionMode =
-            DataGridViewSelectionMode.FullRowSelect;
-            this.DGV_SDC_Dealers.MultiSelect = false;
+            DGV_SDC_Dealers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DGV_SDC_Dealers.MultiSelect = false;
 
-            var dealerFilePath = @"\Libs\Files\CoreFiles\DataFiles\DelerList.txt";
-
-            _dealerList = CsvHelperUtility.ReadDataFromFile<DealerModel, DealerModelMap>(dealerFilePath);
+            _dealerList = DealerManager.GetAllDealers();
             var bindingList = new BindingList<DealerModel>(_dealerList);
             var source = new BindingSource(bindingList, null);
             DGV_SDC_Dealers.DataSource = source;
@@ -53,7 +52,6 @@ namespace Invoiceasy.WinForms
                 DealerModel dealer = row.DataBoundItem as DealerModel;
                 _page = new PageModel();
                 _page.Dealer = dealer;
-                _page.DealerList = _dealerList;
 
                 SelectProductsControl spc = new SelectProductsControl(_hPanel, _vPanel, _page);
                 _hPanel.Controls.Clear();
@@ -66,6 +64,36 @@ namespace Invoiceasy.WinForms
                 MessageBox.Show("Select a Dealer to proceed Next.");
             }
             
+        }
+
+        private void RefreshProductTable(List<DealerModel> dealerList)
+        {
+            var dealerBindingList = new BindingList<DealerModel>(dealerList);
+            var dealerSource = new BindingSource(dealerBindingList, null);
+            DGV_SDC_Dealers.DataSource = dealerSource;
+        }
+
+        private void TB_SDC_Search_TextChanged(object sender, EventArgs e)
+        {
+            var searchText = TB_SDC_Search.Text.ToLower();
+
+            List<DealerModel> searchedDealers = new List<DealerModel>();
+
+            if (string.IsNullOrEmpty(searchText))
+            {
+                RefreshProductTable(_dealerList);
+            }
+            else
+            {
+                searchedDealers = _dealerList.Where(x => x.Code.ToLower().Contains(searchText)
+                                                    || x.DealerName.ToLower().Contains(searchText)
+                                                    || x.Address.ToLower().Contains(searchText)
+                                                    || x.Contact.ToLower().Contains(searchText)).ToList();
+
+
+                RefreshProductTable(searchedDealers);
+
+            }
         }
     }
 }

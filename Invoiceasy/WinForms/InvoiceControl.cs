@@ -26,8 +26,9 @@ namespace Invoiceasy.WinForms
         private PageModel _page;
         private bool _isSuccess = false;
 
-        //private Excel.Application _xlApp { set; get; }
-        //private ExcelApp _excelApp { set; get; }
+        private List<DealerModel> _dealerList;
+        private List<ProductModel> _productList;
+        private List<ItemModel> _itemList;
 
         public InvoiceControl()
         {
@@ -43,11 +44,32 @@ namespace Invoiceasy.WinForms
             _hPanel = hPanel;
             _vPanel = vPanel;
             _page = page;
-
+            _dealerList = DealerManager.GetAllDealers();
+            _productList = ProductManager.GetAllProducts();
             _invoicePage = JsonConvert.DeserializeObject<InvoicePageModel>(JsonConvert.SerializeObject(_page));
 
             TBIC_Discount.MaxLength = 2;
             
+            BindObjectDataToInterface();
+        }
+
+        public InvoiceControl(Panel hPanel, Panel vPanel, InvoicePageModel invoicePage)
+                                    : this()
+        {
+            _hPanel = hPanel;
+            _vPanel = vPanel;
+            _invoicePage = invoicePage;
+            _page = JsonConvert.DeserializeObject<PageModel>(JsonConvert.SerializeObject(_invoicePage));
+            _dealerList = DealerManager.GetAllDealers();
+            _productList = ProductManager.GetAllProducts();
+
+            if (_invoicePage.sale != null)
+            {
+                _itemList = CommonHelper.CloneList<ItemModel>(_invoicePage.AllProducts);
+            }                
+
+            TBIC_Discount.MaxLength = 2;
+
             BindObjectDataToInterface();
         }
 
@@ -59,22 +81,17 @@ namespace Invoiceasy.WinForms
                                 "Text Files (*.txt)|*.txt" + "|" +
                                 "Image Files (*.png;*.jpg)|*.png;*.jpg" + "|" +
                                 "All Files (*.*)|*.*";
-            saveDialog.FileName = "Invoice_" + DateTime.Now.ToString("dd MMMM yyyy HH-mm-ss");
+
+            if (string.IsNullOrEmpty(_invoicePage.FullPath))
+                saveDialog.FileName = "Invoice-" + _invoicePage.No + "_" + DTP_IC_Date.Value.ToString("dd MMMM yyyy") + " " + DateTime.Now.ToString("HH-mm-ss");
+            else
+                saveDialog.FileName = _invoicePage.FullPath;
 
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {
                 _invoicePage.FullPath = saveDialog.FileName;
                 _invoicePage.FileLocation = Path.GetDirectoryName(saveDialog.FileName) + @"\";
                 _invoicePage.FileName = Path.GetFileNameWithoutExtension(saveDialog.FileName);
-
-                //int idx = _invoicePage.FullPath.LastIndexOf(@"\");
-
-                //if(idx != -1)
-                //{
-                //    _invoicePage.FileLocation = _invoicePage.FullPath.Substring(0, idx + 1);
-                //    _invoicePage.FileName = _invoicePage.FullPath.Substring(idx + 1);
-                //}
-                //string path = Path.GetFullPath(saveDialog.FileName);
 
                 BindInterfaceDataToObject();
                 _invoicePage.Note = "Note : " + TBIC_Note.Text;
@@ -83,6 +100,8 @@ namespace Invoiceasy.WinForms
                 IC_ProgressPanel.Visible = true;
                 InvoiceProgressBar.Visible = true;
                 InvoiceProgressBar.Style = ProgressBarStyle.Marquee;
+                _vPanel.Enabled = false;
+                _hPanel.Enabled = false;
 
                 // start the job
                 InvoiceBackgroundWorker.RunWorkerAsync();
@@ -90,8 +109,7 @@ namespace Invoiceasy.WinForms
             else
             {
 
-            }
-            
+            }           
         }
 
         private void BindObjectDataToInterface()
@@ -105,6 +123,10 @@ namespace Invoiceasy.WinForms
             DGV_PageItems.Columns["Unit"].Visible = false;
             DGV_PageItems.Columns["ProductCode"].Visible = false;
 
+            if(!string.IsNullOrEmpty(_invoicePage.Date))
+                DTP_IC_Date.Value = Convert.ToDateTime(_invoicePage.Date);
+
+            TBIC_No.Text = _invoicePage.No;
             TBIC_To.Text = _invoicePage.Dealer.DealerName;
             TBIC_Address.Text = _invoicePage.Dealer.Address;
             TBIC_Contact.Text = _invoicePage.Dealer.Contact;
@@ -121,15 +143,12 @@ namespace Invoiceasy.WinForms
             if(string.IsNullOrEmpty(CBIC_Code.Text))
             {
                 CBIC_Code.Text = _invoicePage.Dealer.Code;
-                CBIC_Code.Items.AddRange(_page.DealerList.Select(x => x.Code).ToArray());
+                CBIC_Code.Items.AddRange(_dealerList.Select(x => x.Code).ToArray());
             }
             else
             {
                 CBIC_Code.Text = _invoicePage.Dealer.Code;
             }
-            
-            
-            //CBIC_Code.Items.Add(_invoicePage.Dealer.Code);
         }
 
         private void BindInterfaceDataToObject()
@@ -138,7 +157,7 @@ namespace Invoiceasy.WinForms
             _invoicePage.Dealer.DealerName = TBIC_To.Text;
             _invoicePage.Dealer.Address = TBIC_Address.Text;
             _invoicePage.Dealer.Contact = TBIC_Contact.Text;
-            _invoicePage.Date = DTP_IC_Date.Value.ToString();
+            _invoicePage.Date = DTP_IC_Date.Value.ToString("MMMM dd, yyyy");
             _invoicePage.Note = TBIC_Note.Text;
 
             if(!string.IsNullOrEmpty(TBIC_Discount.Text))
@@ -179,11 +198,6 @@ namespace Invoiceasy.WinForms
             GetBackToHome();
         }
 
-        private void TBIC_Discount_KeyDown(object sender, KeyEventArgs e)
-        {
-
-        }
-
         private void TBIC_Discount_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !(char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back) || (e.KeyChar == '.');
@@ -197,10 +211,6 @@ namespace Invoiceasy.WinForms
 
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            //LoadExcel
-            //_excelApp = ExcelApp.;
-            //ExcelApp.LoadExcelFile(Environment.CurrentDirectory + @"\Libs\Files\CoreFiles\TemplateFiles\invoice-template.xlsx", 1);
-
             IManager manager = new InvoiceManager(_invoicePage);
             _isSuccess = manager.Execute();
         }
@@ -209,37 +219,122 @@ namespace Invoiceasy.WinForms
         {
             IC_ProgressPanel.Visible = false;
             InvoiceProgressBar.Visible = false;
+            _vPanel.Enabled = true;
+            _hPanel.Enabled = true;
 
-            foreach(var item in _invoicePage.AllProducts)
+            void UpdateProductStock()
             {
-                var product = _page.ProductList.Where(x => x.ProductCode.Equals(item.ProductCode)).FirstOrDefault();
-                product.StockAvailable -= item.Quantity;
+                foreach (var item in _invoicePage.AllProducts)
+                {
+                    var product = _productList.Where(x => x.ProductCode.Equals(item.ProductCode)).FirstOrDefault();
+
+                    if(product != null)
+                    {
+                        if(_itemList != null)
+                        {
+                            var previousItem = _itemList.Where(x => x.ProductCode.Equals(item.ProductCode)).FirstOrDefault();
+                            product.StockAvailable += previousItem.Quantity;
+                        }        
+
+                        product.StockAvailable -= item.Quantity;
+                    }                
+                }
+
+                ProductManager.UpdateAllProducts(_productList);
             }
 
-            var productFilePath = @"\Libs\Files\CoreFiles\DataFiles\ProductList.txt";
+            void SaveInvoiceLogFile()
+            {
+                if (!string.IsNullOrEmpty(_invoicePage.CurrentLogFile))
+                {
+                    _invoicePage.PreviousLogFile = _invoicePage.CurrentLogFile;
+                    FileSystemUtility.DeleteFile(_invoicePage.CurrentLogFile);
+                }
 
-            CsvHelperUtility.WriteDataToFile<ProductModel>(false, productFilePath, ",", _page.ProductList);
+                Files invoiceLog = new Files();
+                invoiceLog.FileLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Invoiceasy\InvoiceLog";
 
-            string invoiceJSON = JsonConvert.SerializeObject(_invoicePage);
+                invoiceLog.FileName = "InvoiceLog-" + _invoicePage.No + "_" + DTP_IC_Date.Value.ToString("dd MMMM yyyy") + " " + DateTime.Now.ToString("HH-mm-ss") + ".txt";
+                _invoicePage.CurrentLogFile = invoiceLog.FileLocation + @"\" + invoiceLog.FileName;
 
-            var fileLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Invoiceasy";
+                invoiceLog.FileText = JsonConvert.SerializeObject(_invoicePage);
+                FileSystemUtility.DeleteFile(_invoicePage.CurrentLogFile);
+                FileSystemUtility.Initialize(true, invoiceLog);
+                FileSystemUtility.WriteFile();
 
-            var fileName = "InvoiceLog_" + DateTime.Now.ToString("dd MMMM yyyy HH-mm-ss") + ".txt";
+                var logFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Invoiceasy" + @"\InvoiceItems\" + "Invoice-" + _invoicePage.No + "_" + "ItemList_" + DTP_IC_Date.Value.ToString("dd MMMM yyyy HH-mm-ss") + ".txt";
+                FileSystemUtility.CreateFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Invoiceasy" + @"\InvoiceItems");
+                CsvHelperUtility.WriteDataToFile<ItemModel>(true, logFilePath, ",", _invoicePage.AllProducts);
+            }
 
-            FileSystemUtility.Initialize(true, fileName, fileLocation, invoiceJSON);
-            FileSystemUtility.CreateFolder();
-            FileSystemUtility.WriteFile();
+            void AddSale()
+            {
+                var sale = new SalesAndCollectionModel
+                {
+                    Id = Guid.NewGuid().ToString("N"),
+                    Sl = (SalesAndCollectionManager.GetAllSalesAndCollectionsCount() + 1).ToString(),
+                    DealerName = _invoicePage.Dealer.DealerName,
+                    Address = _invoicePage.Dealer.Address,
+                    Contact= _invoicePage.Dealer.Contact,
+                    DealerCode = _invoicePage.Dealer.Code,
+                    Date = DTP_IC_Date.Value,
+                    IC_NO = _invoicePage.No,
+                    MR_NO = "",
+                    OpeningBalance = null,
+                    SalesAmount = _invoicePage.PayableAmount,
+                    CollectionAmount = 0,
+                    ClosingBalance = null,
+                    Remarks = "",
+                    SyncType = "Sales"
+                };
 
-            var logFilePath = fileLocation + @"\" + "InvoiceItemList_" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH-mm-ss") + ".txt";
+                if(_invoicePage.sale == null)
+                {
+                    _invoicePage.sale = sale;
+                    SalesAndCollectionManager.AddNewSale(sale);
+                }
+                else
+                {
+                    SalesAndCollectionManager.UpdateSale(_invoicePage.sale, sale);
+                }             
+            }
 
-            CsvHelperUtility.WriteDataToFile<ItemModel>(true, logFilePath, ",", _invoicePage.AllProducts);
+            BindInterfaceDataToObject();
 
-            if(_isSuccess)
+            UpdateProductStock();           
+
+            AddSale();
+
+            SaveInvoiceLogFile();
+
+            if (_isSuccess)
                 MessageBox.Show("Invoice file has been saved successfully");
             else
-                MessageBox.Show("Error! Something Went Wrong");
+                MessageBox.Show("Error! Something Went Wrong while saving the file");
 
-            GetBackToHome();
+            LoadChallanForm();
+
+        }
+
+        private void LoadChallanForm()
+        {
+            var challanPage = JsonConvert.DeserializeObject<ChallanPageModel>(JsonConvert.SerializeObject(_invoicePage));
+
+            challanPage.FullPath = _invoicePage.FullPath.Replace("Invoice", "Challan");
+            challanPage.FileName = _invoicePage.FileName.Replace("Invoice", "Challan");
+            challanPage.FileLocation = _invoicePage.FileLocation.Replace("Invoice", "Challan");
+            challanPage.CurrentLogFile = _invoicePage.CurrentLogFile.Replace("InvoiceLog", "ChallanLog");
+
+            if (!string.IsNullOrEmpty(_invoicePage.PreviousLogFile))
+            {
+                challanPage.PreviousLogFile = _invoicePage.PreviousLogFile.Replace("InvoiceLog", "ChallanLog");
+            }
+
+            ChallanControl cc = new ChallanControl(_hPanel, _vPanel, challanPage);
+            _hPanel.Controls.Clear();
+            _hPanel.Controls.Add(cc);
+            cc.Dock = DockStyle.Fill;
+            cc.Show();
         }
 
         private void DGV_PageItems_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -251,7 +346,8 @@ namespace Invoiceasy.WinForms
                 List<ItemModel> allInvoiceItems = new List<ItemModel>();
                 foreach (DataGridViewRow row in rows)
                 {
-                    ItemModel item = JsonConvert.DeserializeObject<ItemModel>(JsonConvert.SerializeObject(row.DataBoundItem));
+                    ItemModel item = row.DataBoundItem as ItemModel;
+
                     if (item != null)
                     {
                         item.TotalAmount = Convert.ToInt32(item.UnitPrice * item.Quantity);
@@ -300,12 +396,36 @@ namespace Invoiceasy.WinForms
 
         private void CBIC_Code_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedDealer = _page.DealerList.Where(x => x.Code.Equals(CBIC_Code.Text)).FirstOrDefault();
+            var selectedDealer = _dealerList.Where(x => x.Code.Equals(CBIC_Code.Text)).FirstOrDefault();
             BindInterfaceDataToObject();
             _page.Dealer = selectedDealer;
             _invoicePage.Dealer = selectedDealer; 
             BindObjectDataToInterface();
+        }
 
+        private void DGV_PageItems_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (_page.AllProducts.Count == e.RowIndex)
+            {
+                DataGridViewRow row = DGV_PageItems.Rows[e.RowIndex];
+
+                ItemModel item = row.DataBoundItem as ItemModel;
+
+                if (item != null)
+                {
+                    if (string.IsNullOrEmpty(item.SerialNo))
+                    {
+                        item.SerialNo = (_page.ItemCount++).ToString();
+
+                        if(string.IsNullOrEmpty(item.Unit))
+                        {
+                            item.Unit = "Pcs";
+
+                        }
+                        _page.AllProducts.Add(item);
+                    }
+                }
+            }
         }
     }
 }

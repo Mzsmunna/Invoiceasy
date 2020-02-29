@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Invoiceasy.Helper;
 using Invoiceasy.ViewModel;
+using Invoiceasy.Enum;
+using Invoiceasy.Manager;
 
 namespace Invoiceasy.WinForms
 {
@@ -63,13 +65,8 @@ namespace Invoiceasy.WinForms
 
         private void BUC_Products_Click(object sender, EventArgs e)
         {
-            var productFilePath = @"\Libs\Files\CoreFiles\DataFiles\ProductList.txt";
-
-            var productList = CsvHelperUtility.ReadDataFromFile<ProductModel, ProductModelMap>(productFilePath);
-
             _hPanel.Controls.Clear();
-            ProductControl pc = new ProductControl();
-            pc.Assign(productList);
+            ProductControl pc = new ProductControl(_vPanel, _hPanel);
             _hPanel.Controls.Add(pc);
             pc.Dock = DockStyle.Fill;
             pc.Show();
@@ -77,16 +74,43 @@ namespace Invoiceasy.WinForms
 
         private void BUC_Dealers_Click(object sender, EventArgs e)
         {
-            var dealerFilePath = @"\Libs\Files\CoreFiles\DataFiles\DelerList.txt";
-
-            var dealerList = CsvHelperUtility.ReadDataFromFile<DealerModel, DealerModelMap>(dealerFilePath);
-
             _hPanel.Controls.Clear();
-            DealerControl dc = new DealerControl();
-            dc.Assign(dealerList);
+            DealerControl dc = new DealerControl(_vPanel, _hPanel);
             _hPanel.Controls.Add(dc);
             dc.Dock = DockStyle.Fill;
             dc.Show();
+        }
+
+        private void BUC_InvoiceHistory_Click(object sender, EventArgs e)
+        {
+            _hPanel.Controls.Clear();
+            ICHistoryControl ihc = new ICHistoryControl(_hPanel, _vPanel, PageType.Invoice);
+            _hPanel.Controls.Add(ihc);
+            ihc.Dock = DockStyle.Fill;
+            ihc.Show();
+        }
+
+        private void BUC_ChallanHistory_Click(object sender, EventArgs e)
+        {
+            _hPanel.Controls.Clear();
+            ICHistoryControl ihc = new ICHistoryControl(_hPanel, _vPanel, PageType.Challan);
+            _hPanel.Controls.Add(ihc);
+            ihc.Dock = DockStyle.Fill;
+            ihc.Show();
+        }
+
+        private void BUC_SalesAndCollection_Click(object sender, EventArgs e)
+        {
+            _hPanel.Controls.Clear();
+            SalesAndCollectionControl sacc = new SalesAndCollectionControl(_hPanel, _vPanel);
+            _hPanel.Controls.Add(sacc);
+            sacc.Dock = DockStyle.Fill;
+            sacc.Show();
+        }
+
+        private void BUC_TheWeb_Click(object sender, EventArgs e)
+        {
+            Experiment.ExecuteMongoDBOperations();
         }
     }
 }
