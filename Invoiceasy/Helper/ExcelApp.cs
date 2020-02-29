@@ -7,31 +7,33 @@ using System.Threading.Tasks;
 
 namespace Invoiceasy.Helper
 {
-    public class ExcelApp
+    public static class ExcelApp
     {
-        public Application _xlApp { set; get; }
-        public Workbook _xlWorkBook { get; set; }
-        public Worksheet _xlWorkSheet { get; set; }
-        public Range _xlRange { get; set; }
-        public object _misValue { get; set; }
+        public static Application XlApp { set; get; }
+        public static Workbook XlWorkBook { get; set; }
+        public static Worksheet XlWorkSheet { get; set; }
+        public static Range XlRange { get; set; }
+        public static object MisValue { get; set; }
 
-        public ExcelApp()
+        static ExcelApp()
         {
-            _xlApp = new Application();
-            _misValue = System.Reflection.Missing.Value; // needed when creating or saving a excel file
+            if(XlApp == null)
+                XlApp = new Application();
+
+            MisValue = System.Reflection.Missing.Value; // needed when creating or saving a excel file
         }
 
-        public bool CreateNewExcelFile()
+        public static bool CreateNewExcelFile()
         {
-            _xlWorkBook = _xlApp.Workbooks.Add(_misValue);
+            XlWorkBook = XlApp.Workbooks.Add(MisValue);
             return true;
         }
 
-        public bool LoadExcelFile(string filePath, int sheetNumber)
+        public static bool LoadExcelFile(string filePath, int sheetNumber)
         {
-            _xlWorkBook = _xlApp.Workbooks.Open(filePath, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-            _xlWorkSheet = (Worksheet)_xlWorkBook.Worksheets.get_Item(sheetNumber);
-            //_xlWorkBook.Close();
+            XlWorkBook = XlApp.Workbooks.Open(filePath, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+            XlWorkSheet = (Worksheet)XlWorkBook.Worksheets.get_Item(sheetNumber);
+            //XlWorkBook.Close();
             return true;
         }
     }

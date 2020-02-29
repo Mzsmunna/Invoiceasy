@@ -27,15 +27,10 @@ namespace Invoiceasy.WinForms
         private bool _isSuccess = false;
 
         //private Excel.Application _xlApp { set; get; }
-        private ExcelApp _excelApp { set; get; }
+        //private ExcelApp _excelApp { set; get; }
 
         public InvoiceControl()
         {
-            //_xlApp = new Excel.Application();
-
-            _excelApp = new ExcelApp();
-            _excelApp.LoadExcelFile(Environment.CurrentDirectory + @"\Libs\Files\CoreFiles\TemplateFiles\invoice-template.xlsx", 1);
-
             InitializeComponent();
 
             InvoiceBackgroundWorker.DoWork += BackgroundWorker_DoWork;
@@ -203,7 +198,10 @@ namespace Invoiceasy.WinForms
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             //LoadExcel
-            IManager manager = new InvoiceManager(_invoicePage, _excelApp);
+            //_excelApp = ExcelApp.;
+            //ExcelApp.LoadExcelFile(Environment.CurrentDirectory + @"\Libs\Files\CoreFiles\TemplateFiles\invoice-template.xlsx", 1);
+
+            IManager manager = new InvoiceManager(_invoicePage);
             _isSuccess = manager.Execute();
         }
 

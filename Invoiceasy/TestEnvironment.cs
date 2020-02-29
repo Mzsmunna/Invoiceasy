@@ -174,9 +174,9 @@ namespace Invoiceasy
                 invoicePage.AmountInWord = NumberToWords.ConvertAmount(Convert.ToDouble(invoicePage.PayableAmount));
 
                 //Excel.Application xlApp = new Excel.Application();
-                ExcelApp _excelApp = new ExcelApp();
-                _excelApp.LoadExcelFile(Environment.CurrentDirectory + @"\Libs\Files\CoreFiles\TemplateFiles\invoice-template.xlsx", 1);
-                IManager manager = new InvoiceManager(invoicePage, _excelApp);
+                //ExcelApp _excelApp = new ExcelApp();
+                //ExcelApp.LoadExcelFile(Environment.CurrentDirectory + @"\Libs\Files\CoreFiles\TemplateFiles\invoice-template.xlsx", 1);
+                IManager manager = new InvoiceManager(invoicePage);
                 manager.Execute();
 
                 var challanPage = JsonConvert.DeserializeObject<ChalanPageModel>(json);

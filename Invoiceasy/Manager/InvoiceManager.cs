@@ -17,15 +17,16 @@ namespace Invoiceasy.Manager
         //private Excel.Workbook _xlWorkBook { get; set; }
         //private Excel.Worksheet _xlWorkSheet { get; set; }
         //private Excel.Range _xlRange { get; set; }
-        private object _misValue { get; set; }
+        //private object _misValue { get; set; }
 
-        private ExcelApp _excelApp { set; get; }
+        //private ExcelApp _excelApp { set; get; }
 
-        public InvoiceManager(InvoicePageModel invoiceData, ExcelApp excelApp)
+        public InvoiceManager(InvoicePageModel invoiceData)
         {
             _invoiceData = invoiceData;
             //_xlApp = xlApp;
-            _excelApp = excelApp;
+            //_excelApp = excelApp;
+            ExcelApp.LoadExcelFile(Environment.CurrentDirectory + @"\Libs\Files\CoreFiles\TemplateFiles\invoice-template.xlsx", 1);
         }
 
         public bool Execute()
@@ -54,12 +55,12 @@ namespace Invoiceasy.Manager
                     //Console.WriteLine((_excelApp._xlWorkSheet.Cells[12, 6] as Excel.Range).Text);
                     //Console.WriteLine((_excelApp._xlWorkSheet.Cells[12, 7] as Excel.Range).Text);
 
-                    _excelApp._xlWorkSheet.Cells[8, 3] = _invoiceData.No;
-                    _excelApp._xlWorkSheet.Cells[8, 7] = _invoiceData.Date;
-                    _excelApp._xlWorkSheet.Cells[9, 3] = _invoiceData.Dealer.DealerName;
-                    _excelApp._xlWorkSheet.Cells[9, 7] = _invoiceData.Dealer.Code;
-                    _excelApp._xlWorkSheet.Cells[10, 3] = _invoiceData.Dealer.Address;
-                    _excelApp._xlWorkSheet.Cells[11, 3] = _invoiceData.Dealer.Contact;
+                    ExcelApp.XlWorkSheet.Cells[8, 3] = _invoiceData.No;
+                    ExcelApp.XlWorkSheet.Cells[8, 7] = _invoiceData.Date;
+                    ExcelApp.XlWorkSheet.Cells[9, 3] = _invoiceData.Dealer.DealerName;
+                    ExcelApp.XlWorkSheet.Cells[9, 7] = _invoiceData.Dealer.Code;
+                    ExcelApp.XlWorkSheet.Cells[10, 3] = _invoiceData.Dealer.Address;
+                    ExcelApp.XlWorkSheet.Cells[11, 3] = _invoiceData.Dealer.Contact;
                     
 
                     if (_invoiceData.AllProducts != null)
@@ -68,11 +69,11 @@ namespace Invoiceasy.Manager
                         {
                             foreach (var item in _invoiceData.AllProducts)
                             {
-                                _excelApp._xlWorkSheet.Cells[x, 2] = item.SerialNo;
-                                _excelApp._xlWorkSheet.Cells[x, 4] = item.ProductDescriptions;
-                                _excelApp._xlWorkSheet.Cells[x, 5] = item.UnitPrice;
-                                _excelApp._xlWorkSheet.Cells[x, 6] = item.Quantity;
-                                _excelApp._xlWorkSheet.Cells[x, 7] = item.TotalAmount;
+                                ExcelApp.XlWorkSheet.Cells[x, 2] = item.SerialNo;
+                                ExcelApp.XlWorkSheet.Cells[x, 4] = item.ProductDescriptions;
+                                ExcelApp.XlWorkSheet.Cells[x, 5] = item.UnitPrice;
+                                ExcelApp.XlWorkSheet.Cells[x, 6] = item.Quantity;
+                                ExcelApp.XlWorkSheet.Cells[x, 7] = item.TotalAmount;
 
                                 x++;
                             }
@@ -85,12 +86,12 @@ namespace Invoiceasy.Manager
                         
                     }
 
-                    _excelApp._xlWorkSheet.Cells[40, 2] = _invoiceData.Note;
-                    _excelApp._xlWorkSheet.Cells[43, 3] = _invoiceData.AmountInWord;
-                    _excelApp._xlWorkSheet.Cells[40, 7] = _invoiceData.InTotalAmount;
-                    _excelApp._xlWorkSheet.Cells[41, 5] = _invoiceData.SpecialDiscount;
-                    _excelApp._xlWorkSheet.Cells[41, 7] = _invoiceData.DiscountAmount;
-                    _excelApp._xlWorkSheet.Cells[42, 7] = _invoiceData.PayableAmount;
+                    ExcelApp.XlWorkSheet.Cells[40, 2] = _invoiceData.Note;
+                    ExcelApp.XlWorkSheet.Cells[43, 3] = _invoiceData.AmountInWord;
+                    ExcelApp.XlWorkSheet.Cells[40, 7] = _invoiceData.InTotalAmount;
+                    ExcelApp.XlWorkSheet.Cells[41, 5] = _invoiceData.SpecialDiscount;
+                    ExcelApp.XlWorkSheet.Cells[41, 7] = _invoiceData.DiscountAmount;
+                    ExcelApp.XlWorkSheet.Cells[42, 7] = _invoiceData.PayableAmount;
 
                     //while (x <= 39)
                     //{
@@ -99,17 +100,17 @@ namespace Invoiceasy.Manager
                     //}
 
                     //var filePath2 = Environment.CurrentDirectory + @"\Public\Output\invc_output.xlsx";
-                    _excelApp._xlWorkBook.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, _invoiceData.FileLocation + _invoiceData.FileName + @".pdf");
+                    ExcelApp.XlWorkBook.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, _invoiceData.FileLocation + _invoiceData.FileName + @".pdf");
 
                     //PrintOut();
 
                     //_excelApp._xlWorkBook.Close();
 
-                    _excelApp._xlWorkBook.SaveAs(_invoiceData.FullPath, Excel.XlFileFormat.xlOpenXMLWorkbook, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue,
-                    Excel.XlSaveAsAccessMode.xlExclusive, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue, _excelApp._misValue);
+                    ExcelApp.XlWorkBook.SaveAs(_invoiceData.FullPath, Excel.XlFileFormat.xlOpenXMLWorkbook, ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue,
+                    Excel.XlSaveAsAccessMode.xlExclusive, ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue);
 
-                    _excelApp._xlWorkBook.Close();
-                    _excelApp._xlApp.Quit();
+                    ExcelApp.XlWorkBook.Close();
+                    ExcelApp.XlApp.Quit();
 
                     return true;
                 }
@@ -135,13 +136,13 @@ namespace Invoiceasy.Manager
         {
             // Get the current printer
             string Defprinter = null;
-            Defprinter = _excelApp._xlApp.ActivePrinter;
+            Defprinter = ExcelApp.XlApp.ActivePrinter;
 
             // Set the printer to Microsoft XPS Document Writer
-            _excelApp._xlApp.ActivePrinter = "Microsoft XPS Document Writer on Ne01:";
+            ExcelApp.XlApp.ActivePrinter = "Microsoft XPS Document Writer on Ne01:";
 
             // Setup our sheet
-            var _with1 = _excelApp._xlWorkSheet.PageSetup;
+            var _with1 = ExcelApp.XlWorkSheet.PageSetup;
             // A4 papersize
             _with1.PaperSize = Excel.XlPaperSize.xlPaperA4;
             // Landscape orientation
@@ -150,19 +151,19 @@ namespace Invoiceasy.Manager
             _with1.FitToPagesWide = 1;
             _with1.FitToPagesTall = 1;
             // Normal Margins
-            _with1.LeftMargin = _excelApp._xlApp.InchesToPoints(0.7);
-            _with1.RightMargin = _excelApp._xlApp.InchesToPoints(0.7);
-            _with1.TopMargin = _excelApp._xlApp.InchesToPoints(0.75);
-            _with1.BottomMargin = _excelApp._xlApp.InchesToPoints(0.75);
-            _with1.HeaderMargin = _excelApp._xlApp.InchesToPoints(0.3);
-            _with1.FooterMargin = _excelApp._xlApp.InchesToPoints(0.3);
+            _with1.LeftMargin = ExcelApp.XlApp.InchesToPoints(0.7);
+            _with1.RightMargin = ExcelApp.XlApp.InchesToPoints(0.7);
+            _with1.TopMargin = ExcelApp.XlApp.InchesToPoints(0.75);
+            _with1.BottomMargin = ExcelApp.XlApp.InchesToPoints(0.75);
+            _with1.HeaderMargin = ExcelApp.XlApp.InchesToPoints(0.3);
+            _with1.FooterMargin = ExcelApp.XlApp.InchesToPoints(0.3);
 
             // Print the range
-            _excelApp._xlRange.PrintOutEx(_misValue, _misValue, _misValue, _misValue,
-            _misValue, _misValue, _misValue, _misValue);
+            ExcelApp.XlRange.PrintOutEx(ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue,
+            ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue, ExcelApp.MisValue);
 
             // Set printer back to what it was
-            _excelApp._xlApp.ActivePrinter = Defprinter;
+            ExcelApp.XlApp.ActivePrinter = Defprinter;
         }
     }
 }
