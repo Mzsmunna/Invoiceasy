@@ -106,6 +106,7 @@
     <Compile Include="Entity\DealerEntity.cs" />
     <Compile Include="Entity\IEntity.cs" />
     <Compile Include="Entity\ProductEntity.cs" />
+    <Compile Include="Entity\SaleAndCollectionEntity.cs" />
     <Compile Include="Entity\UserEntity.cs" />
     <Compile Include="Enum\InvoiceChallanCode.cs" />
     <Compile Include="Enum\PageType.cs" />
@@ -137,7 +138,10 @@
     <Compile Include="MongoRepository\Core\MongoDBCore.cs" />
     <Compile Include="MongoRepository\Core\MongoDBHelper.cs" />
     <Compile Include="MongoRepository\Core\MongoParam.cs" />
+    <Compile Include="MongoRepository\Repositories\SaleAndCollectionRepository.cs" />
     <Compile Include="MongoRepository\Repositories\DealerRepository.cs" />
+    <Compile Include="MongoRepository\Repositories\DynamicRepository.cs" />
+    <Compile Include="MongoRepository\Repositories\ProductRepository.cs" />
     <Compile Include="MongoRepository\Repositories\RepositoryBase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -34,12 +34,14 @@ namespace Invoiceasy.Helper
             {               
                 if (CheckForInternetConnection())
                 {
-                    var dealerRepo = new DealerRepository(new MongoDbContext());
+                    //var dealerRepo = new DealerRepository(new MongoDbContext());
+                    var dealerRepo = new DynamicRepository<DealerEntity>(new MongoDbContext());
 
-                    dealerRepo.DropDealer();
+                    var results = dealerRepo.GetAllData().Result;
+
+                    //dealerRepo.DropDealer();
 
                     var dealers = DealerManager.GetAllDealers();
-
 
                     var dealerList = JsonConvert.DeserializeObject<List<DealerEntity>>(JsonConvert.SerializeObject(dealers));
 
@@ -50,7 +52,7 @@ namespace Invoiceasy.Helper
                         dealerRepo.Save(dealer);
                     }
 
-                    var results = dealerRepo.GetAllDealers().Result;
+                    //var results = dealerRepo.GetAllDealers().Result;
                 }
             }
             catch(Exception ex)

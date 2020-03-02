@@ -13,21 +13,23 @@ using System.Threading.Tasks;
 
 namespace Invoiceasy.MongoRepository.Repositories
 {
-    public class DealerRepository : RepositoryBase
+    public class DynamicRepository<T> : RepositoryBase where T : IEntity, new()
     {
-        private static IMongoCollection<DealerEntity> Collection { get; set; }
-        private MongoDBCore<DealerEntity> Core;
+        private static IMongoCollection<T> Collection { get; set; }
+        private MongoDBCore<T> Core;
 
-        static DealerRepository()
+        static DynamicRepository()
         {
-            if (!BsonClassMap.IsClassMapRegistered(typeof(DealerEntity)))
+            if (!BsonClassMap.IsClassMapRegistered(typeof(T)))
             {
-                BsonClassMap.RegisterClassMap<DealerEntity>(map =>
+                BsonClassMap.RegisterClassMap<T>(map =>
                 {
+                    //map.SetIsRootClass(true);
                     map.AutoMap();
                     map.SetIgnoreExtraElements(true);
-                    map.MapProperty(x => x.Id).SetElementName("_id");
-                    map.GetMemberMap(x => x.Id).SetSerializer(new StringSerializer(BsonType.ObjectId));
+                    //map.MapIdMember(x => x.Id);
+                    //map.MapProperty(x => x.Id).SetElementName("_id");
+                    //map.GetMemberMap(x => x.Id).SetSerializer(new StringSerializer(BsonType.ObjectId));
 
                     //if (!BsonClassMap.IsClassMapRegistered(typeof(Response)))
                     //{
@@ -47,20 +49,21 @@ namespace Invoiceasy.MongoRepository.Repositories
                     //    });
                     //}
                 });
+                BsonClassMap.RegisterClassMap<T>();
             }
 
         }
 
-        public DealerRepository(IDatabaseContext dbContext)
+        public DynamicRepository(IDatabaseContext dbContext)
             : base(dbContext)
         {
             try
             {
                 if (Collection == null)
                 {
-                    Collection = _database.GetCollection<DealerEntity>("Dealers");
+                    Collection = _database.GetCollection<T>("Dealers");
                 }
-                Core = new MongoDBCore<DealerEntity>(Collection);
+                Core = new MongoDBCore<T>(Collection);
             }
             catch (Exception ex)
             {
@@ -72,33 +75,34 @@ namespace Invoiceasy.MongoRepository.Repositories
             }
         }
 
-        private FilterDefinition<DealerEntity> BuildFilter(string _id)
+        private FilterDefinition<T> BuildFilter(string _id)
         {
-            var filter = Builders<DealerEntity>.Filter.Empty;
+            var filter = Builders<T>.Filter.Empty;
 
             if (!string.IsNullOrEmpty(_id) && _id.ToLower() != "undefined")
             {
-                filter = filter & Builders<DealerEntity>.Filter.Eq("_id", _id);
+                filter = filter & Builders<T>.Filter.Eq("_id", _id);
             }
 
             return filter;
         }
-        public async Task<DealerEntity> GetDealerById(string _id)
+
+        public async Task<T> GetDataById(string _id)
         {
             var filter = BuildFilter(_id);
             return await Collection.Find(filter).FirstOrDefaultAsync().ConfigureAwait(false);
 
         }
 
-        public async Task<List<DealerEntity>> GetAllDealersByField(string fieldName, string fieldValue)
+        public async Task<List<T>> GetDataByField(string fieldName, string fieldValue)
         {
-            var filter = Builders<DealerEntity>.Filter.Eq(fieldName, fieldValue);
+            var filter = Builders<T>.Filter.Eq(fieldName, fieldValue);
             var result = await Collection.Find(filter).ToListAsync().ConfigureAwait(false);
             //var result = await Collection.Find(filter).FirstOrDefaultAsync().ConfigureAwait(false);
             return result;
         }
 
-        public async Task<List<DealerEntity>> GetAllDealers()
+        public async Task<List<T>> GetAllData()
         {
             var filter = BuildFilter(null);
             return await Collection.Find(filter).ToListAsync().ConfigureAwait(false);
@@ -110,7 +114,7 @@ namespace Invoiceasy.MongoRepository.Repositories
 
             try
             {
-                MongoDbOperationResult result = new MongoDBHelper<DealerEntity>(Collection).Save(entity).Result;
+                MongoDbOperationResult result = new MongoDBHelper<T>(Collection).Save(entity).Result;
                 returnVal = result.Id;
             }
             catch (Exception ex)
@@ -121,7 +125,7 @@ namespace Invoiceasy.MongoRepository.Repositories
             return returnVal;
         }
 
-        public void DropDealer()
+        public void DropCollection()
         {
             try
             {
@@ -133,16 +137,14 @@ namespace Invoiceasy.MongoRepository.Repositories
             }
         }
 
-        public void DropAllDealersData(string _id)
+        public void DropAllData(string _id)
         {
             try
             {
-                var collectionDealer = _database.GetCollection<DealerEntity>("Dealers");
-                //var idsFilter = Builders<ProductEntity>.Filter.Eq(d => d.Id, _id);
+                var collectionDealer = _database.GetCollection<T>("Dealers");
+                //var idsFilter = Builders<T>.Filter.Eq(d => d.Id, _id);
                 //collectionDealer.DeleteMany(idsFilter);
-
-                var filter = Builders<DealerEntity>.Filter.Empty;
-                collectionDealer.DeleteMany(filter);
+                //_database.DropCollection("MemberMetaDataHumana");
             }
             catch (Exception)
             {

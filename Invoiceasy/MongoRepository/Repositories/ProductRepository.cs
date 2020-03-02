@@ -13,16 +13,16 @@ using System.Threading.Tasks;
 
 namespace Invoiceasy.MongoRepository.Repositories
 {
-    public class DealerRepository : RepositoryBase
+    public class ProductRepository : RepositoryBase
     {
-        private static IMongoCollection<DealerEntity> Collection { get; set; }
-        private MongoDBCore<DealerEntity> Core;
+        private static IMongoCollection<ProductEntity> Collection { get; set; }
+        private MongoDBCore<ProductEntity> Core;
 
-        static DealerRepository()
+        static ProductRepository()
         {
-            if (!BsonClassMap.IsClassMapRegistered(typeof(DealerEntity)))
+            if (!BsonClassMap.IsClassMapRegistered(typeof(ProductEntity)))
             {
-                BsonClassMap.RegisterClassMap<DealerEntity>(map =>
+                BsonClassMap.RegisterClassMap<ProductEntity>(map =>
                 {
                     map.AutoMap();
                     map.SetIgnoreExtraElements(true);
@@ -51,16 +51,16 @@ namespace Invoiceasy.MongoRepository.Repositories
 
         }
 
-        public DealerRepository(IDatabaseContext dbContext)
+        public ProductRepository(IDatabaseContext dbContext)
             : base(dbContext)
         {
             try
             {
                 if (Collection == null)
                 {
-                    Collection = _database.GetCollection<DealerEntity>("Dealers");
+                    Collection = _database.GetCollection<ProductEntity>("Products");
                 }
-                Core = new MongoDBCore<DealerEntity>(Collection);
+                Core = new MongoDBCore<ProductEntity>(Collection);
             }
             catch (Exception ex)
             {
@@ -72,33 +72,33 @@ namespace Invoiceasy.MongoRepository.Repositories
             }
         }
 
-        private FilterDefinition<DealerEntity> BuildFilter(string _id)
+        private FilterDefinition<ProductEntity> BuildFilter(string _id)
         {
-            var filter = Builders<DealerEntity>.Filter.Empty;
+            var filter = Builders<ProductEntity>.Filter.Empty;
 
             if (!string.IsNullOrEmpty(_id) && _id.ToLower() != "undefined")
             {
-                filter = filter & Builders<DealerEntity>.Filter.Eq("_id", _id);
+                filter = filter & Builders<ProductEntity>.Filter.Eq("_id", _id);
             }
 
             return filter;
         }
-        public async Task<DealerEntity> GetDealerById(string _id)
+        public async Task<ProductEntity> GetProductById(string _id)
         {
             var filter = BuildFilter(_id);
             return await Collection.Find(filter).FirstOrDefaultAsync().ConfigureAwait(false);
 
         }
 
-        public async Task<List<DealerEntity>> GetAllDealersByField(string fieldName, string fieldValue)
+        public async Task<List<ProductEntity>> GetAllProductsByField(string fieldName, string fieldValue)
         {
-            var filter = Builders<DealerEntity>.Filter.Eq(fieldName, fieldValue);
+            var filter = Builders<ProductEntity>.Filter.Eq(fieldName, fieldValue);
             var result = await Collection.Find(filter).ToListAsync().ConfigureAwait(false);
             //var result = await Collection.Find(filter).FirstOrDefaultAsync().ConfigureAwait(false);
             return result;
         }
 
-        public async Task<List<DealerEntity>> GetAllDealers()
+        public async Task<List<ProductEntity>> GetAllProducts()
         {
             var filter = BuildFilter(null);
             return await Collection.Find(filter).ToListAsync().ConfigureAwait(false);
@@ -110,7 +110,7 @@ namespace Invoiceasy.MongoRepository.Repositories
 
             try
             {
-                MongoDbOperationResult result = new MongoDBHelper<DealerEntity>(Collection).Save(entity).Result;
+                MongoDbOperationResult result = new MongoDBHelper<ProductEntity>(Collection).Save(entity).Result;
                 returnVal = result.Id;
             }
             catch (Exception ex)
@@ -121,11 +121,11 @@ namespace Invoiceasy.MongoRepository.Repositories
             return returnVal;
         }
 
-        public void DropDealer()
+        public void DropProduct()
         {
             try
             {
-                _database.DropCollection("Dealers");
+                _database.DropCollection("Products");
             }
             catch (Exception)
             {
@@ -133,16 +133,16 @@ namespace Invoiceasy.MongoRepository.Repositories
             }
         }
 
-        public void DropAllDealersData(string _id)
+        public void DropAllProductData(string _id)
         {
             try
             {
-                var collectionDealer = _database.GetCollection<DealerEntity>("Dealers");
+                var collectionProduct = _database.GetCollection<ProductEntity>("Products");
                 //var idsFilter = Builders<ProductEntity>.Filter.Eq(d => d.Id, _id);
-                //collectionDealer.DeleteMany(idsFilter);
+                //collectionProduct.DeleteMany(idsFilter);
 
-                var filter = Builders<DealerEntity>.Filter.Empty;
-                collectionDealer.DeleteMany(filter);
+                var filter = Builders<ProductEntity>.Filter.Empty;
+                collectionProduct.DeleteMany(filter);
             }
             catch (Exception)
             {

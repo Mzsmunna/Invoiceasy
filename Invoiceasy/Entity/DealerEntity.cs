@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +11,12 @@ namespace Invoiceasy.Entity
     public class DealerEntity : IEntity
     {
         public string Id { get; set; }
+        //[BsonRepresentation(BsonType.ObjectId)]
+        //public new string Id
+        //{
+        //    get => base.Id;
+        //    set => base.Id = value;
+        //}
         public string Sl { get; set; }
         public string DealerName { get; set; }
         public string Address { get; set; }
